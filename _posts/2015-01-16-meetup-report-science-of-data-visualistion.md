@@ -2,7 +2,6 @@
 layout: post
 title:  "Meetup writeup: The Science of (Bio) Data Visualisation"
 date:   2015-01-16 19:45:08
-categories: jekyll update
 ---
 
 Yesterday evening I went along to the [Science of (Bio) Data Visualisation](http://www.meetup.com/Cambridge-Visualization-of-Biological-Information-Meetup/events/219018174/) meetup in Cambridge. There were 2 talks: one by Catagay Turkay, who is researching data visualisation, and one from a design company, [Science-Practice](http://science-practice.com/), who specisalise in the science sector. The two talks complemented each other well.
