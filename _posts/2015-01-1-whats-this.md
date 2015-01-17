@@ -4,7 +4,7 @@ title:  "What's this?"
 date:   2015-01-16 19:33:14
 ---
 
-A number of people in recent years have suggested I blog; others have been surprised I don't. Up to now I've always been too busy, or haven't got around to it because, well,  reasons. But no more. It's 2015, and I've finally run out of excuses. So here we are.
+A number of people recently have suggested I blog; others have been surprised I don't. Up to now I've always been too busy, or haven't got around to it because, well,  reasons. But no more. It's 2015, and I've finally run out of excuses. So here we are.
 
 I can't promise gems of erudition downloaded from these posts into your eyeballs. What gets posted here will be mainly in a front-end developer vein (because that's what I love), with possibly some science-publishing-related notes thrown in (because I'm interested in that too).
 
