@@ -86,7 +86,7 @@ This talk was given by the design agency Science-Practice that specialise in sci
 ### Design process
 
 They talked through their design process: it was their process that helped them discover hidden information in the sequence datasets.
-
+l be able to go to make to to the
 First step was to learn about bioinformatics. Science-Practice are only a handful of people, but they have a scientist on staff in order to help the transfer of scientific knowledge into the design team. Necessary as they have projects in different scientific areas.
 
 They played with various ideas of representing a protein sequence, but decided to focus on the of the sequence characteristic of it representing a chain of contiguous amino acids.
@@ -105,6 +105,6 @@ You can [read more about sequence bundles on their website](http://science-pract
 
 
 ## Closing
-This was a great meetup. Thanks to the two speakers, and to William Spooner for organising. It was good to reconnect with old friends, and make some new ones. I hope I'll be able to go to make to to the next meetup.
+This was a great meetup. Thanks to the two speakers, and to William Spooner for organising. It was good to reconnect with old friends, and make some new ones. I hope I'll be able to make the next one.
 
 (P.S. This writeup is based on my hastily scribbled notes. I think it's pretty accurate, but if you were speaking that night, and I've horribly misrepresented what you said, please get in touch so I can make things right.)
