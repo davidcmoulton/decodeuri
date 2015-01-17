@@ -107,4 +107,4 @@ You can [read more about sequence bundles on their website](http://science-pract
 ## Closing
 This was a great meetup. Thanks to the two speakers, and to William Spooner for organising. It was good to reconnect with old friends, and make some new ones. I hope I'll be able to go to make to to the next meetup.
 
-(P.S. This writeup is based on my hastily sciribbled notes. I think it's pretty accurate, but if you were speaking that night, and I've horribly misrepresented what you said, please get in touch so I can make things right.)
+(P.S. This writeup is based on my hastily scribbled notes. I think it's pretty accurate, but if you were speaking that night, and I've horribly misrepresented what you said, please get in touch so I can make things right.)
