@@ -81,7 +81,7 @@ Scientists should collaborate with designers/visualisation experts to produce be
 
 ## Sequence bundles
 
-This talk was given by the design agency Science-Practice that specialise in science-related projects in many disciplines. The science bundles came out of the effort to work out a new way of visualising protein chains in MSA antibiotic resistance genes in MSA. Something to do with an entry for the [Longitude Prize 2014 antibiotics challenge](https://longitudeprize.org/challenge/antibiotics). Their pitch was "Designing visualisations to enable discovery of data features that would otherwise remain hidden."
+This talk was given by the design agency Science-Practice that specialise in science-related projects in many disciplines. The sequence bundles came out of the effort to work out a new way of visualising protein chains in antibiotic resistance genes in MSA. Something to do with an entry for the [Longitude Prize 2014 antibiotics challenge](https://longitudeprize.org/challenge/antibiotics). Their pitch was "Designing visualisations to enable discovery of data features that would otherwise remain hidden."
 
 ### Design process
 
