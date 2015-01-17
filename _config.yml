@@ -5,8 +5,10 @@ description: > # this means to ignore newlines until "baseurl:"
   David Moulton, front end developer, blogs here.
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://decodeuri.net" # the base hostname & protocol for your site
+email_display: "hello at decodeuri dot net"
 twitter_username: davidcmoulton
 github_username:  davidcmoulton
+
 
 # Build settings
 markdown: kramdown
