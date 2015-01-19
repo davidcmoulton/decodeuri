@@ -86,10 +86,10 @@ This talk was given by the design agency Science-Practice that specialise in sci
 ### Design process
 
 They talked through their design process: it was their process that helped them discover hidden information in the sequence datasets.
-l be able to go to make to to the
-First step was to learn about bioinformatics. Science-Practice are only a handful of people, but they have a scientist on staff in order to help the transfer of scientific knowledge into the design team. Necessary as they have projects in different scientific areas.
 
-They played with various ideas of representing a protein sequence, but decided to focus on the of the sequence characteristic of it representing a chain of contiguous amino acids.
+The first step was to learn about bioinformatics. Science-Practice are only a handful of people, but they have a scientist on staff in order to help the transfer of scientific knowledge into the design team. Necessary as they have projects in different scientific areas.
+
+They played with various ideas of representing a protein sequence, but decided to focus on the sequence characteristic of it representing a chain of contiguous amino acids.
 
 Having decided on a chain representation, their chosen way of comparing 1809 protein sequences was by graphing as a ribbon connecting the amino acids on the y-axis, and the sequence position on the x-axis. Partial transparency was very important here, in order to see patterns of overlap.
 
@@ -99,7 +99,7 @@ Their playing revealed some surprises that as far as they knew were not known to
 
 Interesting that these discoveries came to light during the design process.
 
-On the back of this they've developed a desktop tool, and a lighter weight web tool, to enable you to use the sequence bundle approach to visualise not only protein sequences, but also DNA and RNA sequences. The aim is to help scientists uncover information hidden within sequences without having to go through the design process. They had a group of 70 users in a study that they interviewed and got feedback from during the development of the tool [not much info on the user research process, unfortunately].
+On the back of this they've developed a desktop tool, and a lighter weight web tool, to enable you to use the sequence bundle approach to visualise not only protein sequences, but also DNA and RNA sequences. The aim is to help scientists uncover information hidden within sequences without having to go through the design process themselves. They had a group of 70 users in a study that they interviewed and got feedback from during the development of the tool [not much info on the user research process, unfortunately].
 
 You can [read more about sequence bundles on their website](http://science-practice.com/projects/sequence-bundles/).
 
