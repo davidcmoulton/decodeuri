@@ -103,6 +103,8 @@ On the back of this they've developed a desktop tool, and a lighter weight web t
 
 You can [read more about sequence bundles on their website](http://science-practice.com/projects/sequence-bundles/).
 
+**Update:** Science-Practice have pointed out that there is a report published as part of the Proceedings of the 3rd Annual Symposium on Biological Data Visualization: Data Analysis and Redesign Contests. It's available at BioMedCentral: [Sequence Bundles: a novel method for visualising, discovering and exploring sequence motifs](http://www.biomedcentral.com/1753-6561/8/S2/S8) (open access).
+
 
 ## Closing
 This was a great meetup. Thanks to the two speakers, and to William Spooner for organising. It was good to reconnect with old friends, and make some new ones. I hope I'll be able to make the next one.
