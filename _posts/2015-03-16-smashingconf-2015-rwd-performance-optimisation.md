@@ -91,7 +91,8 @@ Only send image of appropriate size to client.
 - Modified the server-side code to provide unique urls for the individual images of different (appropriate) sizes.
 - Added ```srcset``` and ```sizes``` attributes to the image elements:
 
-```
+{% highlight HTML %}
+
 <img src="[default/fallback image path]"
   srcset="[small image path] 300w, [medium image path] 345w
           [large image path] 500w"
@@ -99,7 +100,7 @@ Only send image of appropriate size to client.
          (max-width: 1200px) 500px"
   alt="[something appropriate]"
   ... />
-```
+{% endhighlight %}
 
 Although we only specified width in this case, srcset is often used to specify resolution. Images included in a srcset attribute value are considered equivalent. Because of this, srcset only provides hints to the browser for resolution switching, the browser is not obliged to respect it.
 
@@ -114,7 +115,7 @@ Images are being sent to the client regardless of the client environment, and ar
 #### Option 1: use JavaScript
 
 Like this:
-```
+{% highlight HTML %}
 <script>
  function loadReal(img) {
   if (!img) return;
@@ -126,7 +127,7 @@ Like this:
 </script>
 ...
 <img src="1x1.jpg" onload="loadReal(this);" data-src="[url to desired image]" alt="[alt of desired image]" />
-```
+{% endhighlight %}
 
 JavaScript is required to show these images though.
 
@@ -134,12 +135,12 @@ JavaScript is required to show these images though.
 
 #### Option 2: use ```<picture>```:
 
-```
-						<picture>
-							<source media="(min-width: 800px)" src="[url to desired image]" />
-							<img src="1x1.jpg" />
-						</picture>
-```
+{% highlight HTML %}
+<picture>
+  <source media="(min-width: 800px)" src="[url to desired image]" />
+  <img src="1x1.jpg" />
+</picture>
+{% endhighlight %}
 
 Unlike images specified in ```srcset```, the child ```<source>``` elements of ```<picture>``` are not considered equivalent. This means that whatever media query you specify there the browser is required to respect. This can make things slower though, so only use ```<picture>``` if you need the [art direction usecase](http://usecases.responsiveimages.org/).
 
@@ -158,16 +159,16 @@ Refactor the media-query-specific CSS into file(s) specific for the media query/
 
 #### Option 1: use ```<link media...```:
 
-```
+{% highlight HTML %}
 <link rel="stylesheet" type="text/css"  href="base.css" media="all" />
 <link rel="stylesheet" type="text/css"  href="mobile.css" media="(max-width:799px)"/>
 <link rel="stylesheet" type="text/css"  href="desktop.css" media="(min-width:800px)"/>
-```
+{% endhighlight %}
 
 #### Option 2: use JavaScript:
 
 
-```
+{% highlight HTML %}
   <link rel="stylesheet" type="text/css"  href="base.css" media="all" />
   <link rel="stylesheet" type="text/css"  data-src="mobile.css" data-mq="(max-width:799px)"/>
   <link rel="stylesheet" type="text/css"  data-src="desktop.css" data-mq="(min-width:800px)"/>
@@ -188,7 +189,7 @@ Refactor the media-query-specific CSS into file(s) specific for the media query/
       }
     }
   </script>
-```
+{% endhighlight %}
 
 
 Using ```<link>```, the file that is under a non-matching media query is still loaded, but its load is deferred so it doesn't block. This was unexpected, but is apparently standard browser behaviour. I guess so that if the device switches orientation, the CSS for it is already in memory and wouldn't have to be fetched, which could have really horrible effects.
@@ -216,7 +217,7 @@ Can have a JavaScript function that sets a cookie recording the viewport width. 
 
 For example, in JavaScript:
 
-```
+{% highlight JavaScript %}
 function writeCookie() {
 	var today = new Date();
 	var the_date = new Date("December 31, 2023");
@@ -226,17 +227,19 @@ function writeCookie() {
 	document.cookie=the_cookie
 }
 writeCookie();
-```
+{% endhighlight %}
 
 then on the server, e.g. in PHP:
 
-```
+{% highlight PHP %}
+<?php
 if (isset($_COOKIE["users_width"])){
   if($_COOKIE["users_width"] > 650) {
     echo The_Content_Only_For_Wide_Viewports;
   }
 }
-```
+
+{% endhighlight %}
 
 - dependency on js for wide view content
 - will only take effect on page load, not window resize nor device orientation switch (unless use ajax to set cookie again with new width, and dynamically inject the content as needed?).

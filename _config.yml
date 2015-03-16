@@ -13,3 +13,4 @@ github_username:  davidcmoulton
 # Build settings
 markdown: kramdown
 permalink: pretty
+highlighter: pygments
