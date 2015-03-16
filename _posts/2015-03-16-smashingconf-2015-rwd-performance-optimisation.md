@@ -39,7 +39,7 @@ Bearing in mind the sheer number of "mobile" devices out there today (Akamai hav
 
 According to the HTTP archive, mdot sites are in a minority, at only 26%, which balance are either desktop sites or responsive sites. -->
 
-## Present lesson: Responsive Web Design (RWD)
+## Present lesson: Responsive Web Design
 
 Google recommend RWD for SEO. If nothing else, this is driving adoption. In October 2014, of the top 100000 websites, 18% used responsive design, up from 10% only 11 months previously.
 
@@ -292,8 +292,11 @@ Instead, the recommended approach is to have a single URL that supplied differen
 
 There's a good read by [Ilya Grigorik](https://twitter.com/igrigorik) on [Deploying WebP via accept content negotiation](https://www.igvita.com/2013/05/01/deploying-webp-via-accept-content-negotiation/)
 
-(I know the code sample formatting is horrible. I'll try to get some time to improve it.)
+## And finally
 
+Thanks to Guy (and to his facilitators Michael and Ellen), and Smashingconf for a great workshop! Really interesting, I learned a lot.
+
+<!--
 ## Misc notes
 
 - WebPageTest enables Single Point of Faliure tests, e.g. what happens if connect.facebook.net is unavailable. (Solution: async them if you can)
@@ -308,3 +311,5 @@ There's a good read by [Ilya Grigorik](https://twitter.com/igrigorik) on [Deploy
 - https://paul.kinlan.me/detecting-critical-above-the-fold-css/
 - spof-o-matic chrome extension: see what happens to your page when scripts are made unavailable
 - bit.ly/rf-free
+
+-->
