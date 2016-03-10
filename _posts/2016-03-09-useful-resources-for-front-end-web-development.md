@@ -4,7 +4,7 @@ title:  "Useful resources for front end web development"
 date:   2016-03-09
 ---
 
-I was talking to a friend who's recently started learning front end development, and realised that the sheer abundance of posts on the topic makes it hard for a newcomer to know where which way to turn. In an attempt to provide some kind of orientation, I've put together a list of blogs and other resources I find useful myself. Hopefully others will benefit from this too, although obviously as this is a personal selection YMMV.
+I was talking to a friend who's recently started learning front end development, and realised that the sheer abundance of posts on the topic makes it hard for a newcomer to know where which way to turn. In an attempt to provide some kind of orientation, I've quickly put together a short list of some of blogs and other resources I find useful myself. Hopefully others will benefit from this too, although obviously as this is a personal selection YMMV.
 
 ## General
 
@@ -25,7 +25,7 @@ I was talking to a friend who's recently started learning front end development,
 ## SVG
 - [sarasoueidan.com](https://sarasoueidan.com/) (excellent, actionable, detailed posts on all matters svg)
 
-It was tricky trying to distill JavaScript blogs suitable for a beginner, as so much seems to be aimed at intermediate level or higher. Ill aim to update this post with js resources if I come across something suitable.
+It was tricky trying to distill JavaScript blogs suitable for a beginner, as so much seems to be aimed at intermediate level or higher. I'll may update this post with js resources if I come across something suitable, but books might be the better bet if you're starting to learn JavaScript with no prior programming experience.
 
 Finally, there's [stackoverflow.com](http://stackoverflow.com/), which describes itself as <q>a community of 4.7 million programmers, just like you, helping each other.</q> It's often a great place to find answers to questions you have. Just bear in mind that the quality of the answers can be uneven, so it can be a mixed blessing for a beginner.
 
