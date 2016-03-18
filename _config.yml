@@ -12,5 +12,7 @@ github_username:  davidcmoulton
 
 # Build settings
 markdown: kramdown
+kramdown:
+  input: GFM
 permalink: pretty
-highlighter: pygments
+#highlighter: pygments
