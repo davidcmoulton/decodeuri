@@ -130,7 +130,7 @@ Which embedding mechanism to use? Depends on the answers to the questions:
 </object>
 ```
 
-To get at the SVG DOM from an SVG loaded by `<object>`, use `document.getElementById('mySvgObjectEmbedder').contentDocument`.
+To get at the SVG DOM from an SVG loaded by `<object>`, use `[object_el].contentDocument`.
 
 Don't optimise after setting up animations: they will almost certainly break.
 
@@ -218,7 +218,7 @@ Don't overdo it with server push: only push critical assets like core js, critic
 
 [Track intelligent push].
 
-Look at connection view in dev tools. It's pretty bare of meaningful metrics. Remember headers are now binary so harder to inspect. Jim Shaver has a post on setting up Wireshark to inspect HTTP/2 requests (is it this one: https://www.google.co.uk/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0ahUKEwj9nIyrhsbLAhXCXhQKHVvOCFkQFggfMAA&url=https%3A%2F%2Fjimshaver.net%2F2015%2F02%2F11%2Fdecrypting-tls-browser-traffic-with-wireshark-the-easy-way%2F&usg=AFQjCNF6sEfPJyqf1-Ba0iC6SHIenWYm5w).
+Look at connection view in dev tools. It's pretty bare of meaningful metrics. Remember headers are now binary so harder to inspect. Jim Shaver has a post on setting up Wireshark to inspect HTTP/2 requests (is it this one: [jimshaver.net/2015/02/11/decrypting-tls-browser-traffic-with-wireshark-the-easy-way](https://jimshaver.net/2015/02/11/decrypting-tls-browser-traffic-with-wireshark-the-easy-way/)).
 
 Rebecca Murphy has a tool to inspect HTTP/2 logs.
 
