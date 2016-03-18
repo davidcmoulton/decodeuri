@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "Smashingconf 2016: day 1"
+desc: "Write up of raw notes taken during of the first day of Smashingconf Oxford 2016."
 date:   2016-03-18 15:35
 ---
 

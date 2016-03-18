@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "Smashingconf 2016: overview"
+desc: "Introducing the writeup of Smashingconf Oxford 2016."
 date:   2016-03-18 15:30
 ---
 
