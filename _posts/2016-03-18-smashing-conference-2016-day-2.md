@@ -210,8 +210,6 @@ If you want to make every new tab / window open with a devtools window ready-att
 Accessibility tools for Chrome are currently provided by a plugin, but  natve a11y tooling is on its way. 
 
 ## Overthinking design and embracing minutiae
-{:.no_toc}
-
 (Jon Setzen @jonsetzen)
 
 Works at MediaTemple.

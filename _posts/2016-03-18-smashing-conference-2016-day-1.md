@@ -52,7 +52,7 @@ People are more often fired for soft skill problems than core competency problem
  Acknoweldge when you're wrong. As a desgin leader: "My job is not to know more about everything, my job is to be more curious about everything."
  
 ## Building a pattern language for the web
- Alla Kholmalova (@caraftui)
+ Alla Kholmalova (@craftui)
  
  Recommended book Thinking in Systems
  
@@ -322,7 +322,7 @@ as this will give you perfectly scaled text inside any container and won't break
 Can use viewport-relative units in flex-basis. , e.g. `vmax`: can give you a differeing # coulumns, depending on the viewport width: the effects of a media query, without a media query.
 
 ## Join the dots  
-(Haydon Pickering @haydonworks)
+(Haydon Pickering @heydonworks)
 Slides: http://slides.com/heydon/joining-up-the-dots#/
 
 - forcefeed.js(?)
