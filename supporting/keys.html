@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>keys</title>
+  <style>
+    output {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <p>Focus into the text input box then press a key. Its keyup, keydown and keypress key codes and char codes will be shown. (IE support is 9 and above due to using addEventListener. I might extend this if there's demand for it).</p>
+  <form action="#">
+    <input type="text" id="input" />
+    <input type="reset" />
+  </form>
+
+  <output id="output">
+
+     <section id="keyup">
+      <h2>keyup</h2>
+      <div>keycode: <span class="keycode"></span></div>
+      <div>charcode: <span class="charcode"></span></div>
+     </section>
+
+     <section id="keydown">
+      <h2>keydown</h2>
+      <div>keycode: <span class="keycode"></span></div>
+      <div>charcode: <span class="charcode"></span></div>
+     </section>
+
+     <section id="keypress">
+      <h2>keypress</h2>
+      <div>keycode: <span class="keycode"></span></div>
+      <div>charcode: <span class="charcode"></span></div>
+     </section>
+
+  </output>
+  <script>
+
+    (function (window) {
+
+      function output(e) {
+        document.querySelector('#' + e.type + ' .keycode').innerHTML = e.keyCode;
+        document.querySelector('#' + e.type + ' .charcode').innerHTML = e.charCode;
+      }
+
+      function clear() {
+        var clearable = document.querySelectorAll('#output span');
+        [].forEach.call(clearable, function (el) {
+          el.innerHTML = '';
+        });
+      }
+
+      var $input = document.querySelector('#input');
+      $input.addEventListener('keyup', output, false);
+      $input.addEventListener('keydown', output, false);
+      $input.addEventListener('keypress', output, false);
+      document.querySelector('[type=reset]').addEventListener('click', clear, false);
+
+    }(this));
+
+  </script>
+</body>
+</html>
