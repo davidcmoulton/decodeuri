@@ -4,40 +4,36 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>keys</title>
-  <style>
-    output {
-      display: block;
-    }
-  </style>
+  <link href="keys.css" rel="stylesheet" />
 </head>
 <body>
-  <p>Focus into the text input box then press a key. Its keyup, keydown and keypress key codes and char codes will be shown. (IE support is 9 and above due to using addEventListener. I might extend this if there's demand for it).</p>
   <form action="#">
-    <input type="text" id="input" />
-    <input type="reset" />
+    <label for="input">Type a key to see its codes:</label>
+    <input type="text" id="input" autofocus="autofocus" class="input" maxlength="1"/>
+    <input type="reset" class="reset" />
   </form>
 
-  <output id="output">
+  <div id="output" class="output">
 
-     <section id="keyup">
-      <h2>keyup</h2>
+     <section id="keyup" class="section">
+      <h2 class="h2">keyup</h2>
       <div>keycode: <span class="keycode"></span></div>
       <div>charcode: <span class="charcode"></span></div>
      </section>
 
-     <section id="keydown">
-      <h2>keydown</h2>
+     <section id="keydown" class="section">
+      <h2 class="h2">keydown</h2>
       <div>keycode: <span class="keycode"></span></div>
       <div>charcode: <span class="charcode"></span></div>
      </section>
 
-     <section id="keypress">
-      <h2>keypress</h2>
+     <section id="keypress" class="section">
+      <h2 class="h2">keypress</h2>
       <div>keycode: <span class="keycode"></span></div>
       <div>charcode: <span class="charcode"></span></div>
      </section>
 
-  </output>
+  </div>
   <script>
 
     (function (window) {
@@ -60,7 +56,7 @@
       $input.addEventListener('keypress', output, false);
       document.querySelector('[type=reset]').addEventListener('click', clear, false);
 
-    }(this));
+    }(window));
 
   </script>
 </body>

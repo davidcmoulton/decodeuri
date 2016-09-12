@@ -9,7 +9,7 @@ date: 2016-09-08 00:30:00
 
  All verification performed using this test form:
 
- <iframe src="/supporting/keys.html" width="100%" height="430px" style="outline: 1px solid rgba(42, 122, 226, 0.25); border-width: 0;"></iframe>
+ <iframe src="/supporting/keys.html" width="100%" height="170" style="outline: 1px solid rgba(42, 122, 226, 0.25); border-width: 0;"></iframe>
 
  and referring to this [ACSII reference](http://www.ascii-code.com/).
 
