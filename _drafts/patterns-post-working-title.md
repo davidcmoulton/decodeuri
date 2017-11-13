@@ -107,6 +107,8 @@ If a pattern had some behaviour, then a **second pass** ticket was created for b
 - JavaScript behaviour written
 - JavaScript tests pass
 
+For patterns that had variants, the one ticket described building all the variants. They will all have to be considered at the same time in order to build them in a way that works for all of the variants anyway, so it didn't make sense to split them up.
+
 Individual tickets may have had additional, pattern-specific checklist items as necessary.
 
 ### Board
@@ -146,20 +148,35 @@ Pull requests on GitHub from feature branches into master branch.
 
 ## Build
 
-### Setup
-Although PatternLab can compile scss, we elected to only use PatternLab for its styleguide generation capabilities, as we want to keep control of all production code generation. We started off with a minimal build pipeline, originally in Grunt, but quickly switching to Gulp, knowing that we could add to it when we needed to. Initially  it was for linting and compiling scss, and moving other asset files where they needed to be for the PatterLab server to display them correctly. Later when we came to build the patterns' behaviours, we added JavaScript linting and transpiling, test running etc.
+### Build pipeline
+Although PatternLab can compile scss, we elected to only use PatternLab for its styleguide generation capabilities, as we want to keep control of all production code generation. We started off with a minimal build pipeline, originally in Grunt, but quickly switching to Gulp, knowing that we could add to it when we needed to. Initially it was only for linting and compiling scss, and moving asset files where they needed to be for the PatterLab server to display them correctly. Later, when we came to build the patterns' behaviours, we added JavaScript linting and transpiling, test running etc.
 
+### SCSS
+We agreed a few simple rules with the aim of keeping the CSS maintainable in the longer term:
+
+- Use Harry Robert's flavour of BEM (Block, Element, Modifier) for CSS class naming. This works well with a pattern-based approach, as the root of each pattern can define a BEM block. Coupled with our decision to have one scss file per pattern, this namespacing kept the separation of the styles for individial patterns nice and clean.
+- keep selector specificity as low as possible, with a maximum selector nesting of 3 (not including pseudo elements). As selectors only need to start from the root of a pattern (or deeper), this seemed a pragmatic maximum. We agreed that we'd increase it if we really, _really_ needed to, but up to now we haven't had to.
+- don't use `&` as partial completion for a class name, as it makes searching/refactoring across a code base more error-prone.
+- avoid `@extends` due to side effects, and unpredicable edge cases, use `@mixin`s instead.
+- one scss file per pattern
+
+#### Architecture
+The patterns we're building are defined by the design system devised by the designer. 
+
+With an eye on the potential performance increases available with HTTP/2, we ensured that we could generate an individual css file for each pattern scss file.
 
 ### Patterns
 Now we have a bunch of patterns to build, principles and aims to, err, aim for... we have a process to follow, and a build pipeline to use. Time to build some patterns.
 
 Each pattern comprises:
 
-- 1 mustache file (first pass)
-- 1 scss file (first pass)
-- 0 or 1 JavaScript file (second pass)
+- Exactly 1 `.mustache` file
+- Exactly 1 `.scss` file
+- 1 or more `.json` files, one per pattern variant
+- 0 or 1 `.js` file (built in the second pass)
 
-
+#### json files and pattern variants
+PatternLab has the concept of pattern variants which chimes well with our identification of pattern variants in the pattern identification and naming exercise. A pattern with variants has one mustache file, with an example of each variant described by an individual json data file for that variant. [TODO: Example].
 
 
 
@@ -207,8 +224,6 @@ This describes 18 months' work. As such there's a lot to record. Not all of it w
 ## What we needed to do 
 
 ### Overall sweep
-- ground up rebuild of site. Not just the website, but all of the services involved from consuming article XML, to rendering it in a browser. Took a microservices approach. Wider discussion of this outside the scope of this article.
-
 From the front end point of view, I knew that the end result must promote
     - flexibility (F)
     - maintainablity (M)
@@ -217,67 +232,12 @@ From the front end point of view, I knew that the end result must promote
 (- IIIF with responsive images markup works well (P))
 (- service workers (P))
 
-- worked with designer on the concept of building a design system rather than just designed pages (F)
-- modular approach required hierarchical pattern-based system (FM)
 (- BEM for CSS naming works well (FM))
 
-- we're gonna' need a pattern library
-    - atomic design & patternlab
-    
-- having a mutual understanding with the designer of the atomic design philosophy we were going to use made communicating around the patterns and design system a lot easier. We were also co-located which meant it was quick to confirm an approach, or quickly prototype something to help answer a question.
-
-### using patterns directly in site
-
-- How to avoid pattern rot?
-    - we knew it was the only way to maintain the integrity, and so the value of the pattern library in the long term
-    - LonelyPlanet approach: tightly coupled to their integration, not for us
-    - no one else had really cracked that problem (this was before Fractl)
-    
 ## what we did
 
-### agree principles and set up workflow
-
-- Before writing any pattern code, we agreed what the front end principles for the patterns and the site would be [insert principles here].
-
-- Core was progressive enhancement: core content and functionality of the site must be available without requiring JavaScript.
-
-- We knew we had to establish a workflow for building & testing mustache pattern templates and associated css in the first instance;
-
-- js behaviour we would add to each pattern as required as a separate task once the html & css for it had been finalised
-
-- as we knew we would need a build pipeline anyway, decided to control as much with that pipeline as possible, so used it to handle SASS compilation, instead of handing that off to Patten Lab.
-
-- built a suitable Gulp build pipeline to lint and compile the css, and optimise images, which we could extend as necessary as we went along.
-
-### Project style
-- We wanted a lightweight, flexible structure that wouldn't get in the way or slow us down. Decided on a Scrum project style with 2 week sprints. (This turned out to have been a good decision. In the early days we had some problems with signoff: we were a bit quick to call things 'done' before the product team had had a chance to check it, but we picked that up early in a retrospective, and fixed the process to keep everyone happy.)
-
-- Scrum boards were managed in Trello
-
-- Each ticket was to have a basic checklist that must be completed before the pattern was 'done'. Some tickets would need to have more detailed checklists, but the common, basic checklist was:
-    - semantic html is built
-    - css is applied correctly
-    - core content & functionality available without js
-    - accessibility tests pass
-    - passes device/browser testing
-
-### name all the things!
-- prior to starting the pattern build, the designer & fe devs printed out all the patterns (nach) and laid them out on the floor. They were grouped, dupes removed, variants identifed and each pattern given an agreed name. We thought it would take a couple of hours, but it took most of a day to complete. The benefits were well worth the time: it was a great way to expose many hidden assumptions, identify gaps in thinking, and discover inconsistencies that had crept in during the design process. If we hadn't done the exercise, all those problems would still exist, but they'd only manifest later when they'd be more expensive in time and effort to fix.
-
-### Getting started
-- Now everything we're building had a name, we created a ticket for the build of each pattern; any variants of a pattern were included with the build of the main pattern
-
-- at the same time we identified which of the patterns would require js behaviour, and created ticket for building the behaviour for each pattern that needed it.
-
 ### First pass: markup & css
-    
-#### Pattern definition
 
-Each pattern:
-- has one mustache file
-- has at least one json data file; it may have more, describing different variants of the pattern, and the more common combinations of data that a pattern may use.
-- one scss file
-- one yaml file defining its allowable data [forward reference]
 
 #### scss
 
@@ -316,48 +276,5 @@ Each pattern:
 - build an adapter for our patterns in a different language
 - functional test layer
 - tree shake for js/css with H/2
-
-
-
-# Notes on meeting with EBI, which may have some bearing
-
-What you've learned from user research since launch and what design changes you've made in response to user feedback.
-
-How you've approached the front-end implementation to ensure content is easily accessible to:
-users in developing countries (e.g. using mobile phones with low bandwidth data connections)
-- page budget
-- make every contender for bytes justify itself
-- responsive image techniques (also IIIF helps for server-side)
-- H/2
-- we will be implementing ServiceWorkers
-- webpagetest
-
-users with visual, cognitive or other impairments
-- WAI level 2
-- tota11y browser plugin (Kahn Academy), useful for checking patterns as you build
-- looking into integrating a11y regression testing into our CI
-
-Google and other search engines
-- follow their guidelines: e.g. good page semantics, canonical urls, avoid duplicate content. If you build to progressive enhancement principles then you get a lot of this for free
-
-What you've learned about creating a pattern library and any tips or recommendations
-- we used atomic design: PatternLab
-- keep atoms atomic
-- don't worry too much about what's a molecule and what's an organism
-- maintain typographical styles orthogonal to pattern styles by creating one sass file of mixins defining your typographical styles, and using those mixins in pattern styles 
-
-I noticed that your site works well with JavaScript turned off, except the side-by-side view disappears. However, the search results and article content is easily accessible without JavaScript, which is something we would also like to achieve. Some of the front-end frameworks are very JavaScript reliant (we've been looking at Vue.js), so I'm wondering if you have a separate version of the site which works without JavaScript?
-
-- side by side view links to something requiring JavaScript, so we only display a link to it when js is available
-- progressive enhancement:
-    - core content and functionality available without js
-    - build html & css first
-    - build behaviour separately
-    
-- we didn't use a framework because we didn't need one
-
-- do you even need a framework?
-- are you speaking to Xavier Watkins?
-- 
     
 
