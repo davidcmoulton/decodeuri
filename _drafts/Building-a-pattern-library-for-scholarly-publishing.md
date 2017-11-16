@@ -4,7 +4,7 @@ title: "Building a pattern library for scholarly publishing"
 ---
 
 
-This post describes an approach to building a pattern library for a brand new version of an existing academic science journal in a way that makes the design system and the pattern library codebase maintainable for the foreseeable future.
+This post describes an approach to building a pattern library for a brand new version of an existing academic science journal in a way that makes the design system and the pattern library codebase highly flexible and maintainable.
 
 ## Contents
 {:.no_toc}
@@ -16,6 +16,8 @@ This post describes an approach to building a pattern library for a brand new ve
 ## Introduction
 I recently had the privilege of being involved in the ground up rebuild of an [online science journal](https://elifesciences.org). Not just the front end, the whole stack was being rebuilt from scratch using a microservices approach. The journal is building a reputation for innovation in science publishing, and it was a great opportunity to get involved in a green field project to build best web practise into this arena. In this post I'll be focusing on how we built the front end. A second post is planned about how we integrated the pattern library into the site.
 
+Note that the code examples are likely to have been simplified for clarity.
+
 
 ## Deciding on an approach
 
@@ -24,7 +26,7 @@ During the design phase I had many constructive conversations with the designer,
 
 Building a design system requires a modular, hierarchical approach, and this approach is well supported by using a pattern library. Brad Frost's [Atomic Design](http://bradfrost.com/blog/post/atomic-web-design/) concept was a natural fit with the designer's way of thinking about the new design, and so we chose atomic design as the mental model for our new site design approach.
 
-Atomic Design considers reusable, composable design patterns in a hierarchy described in terms of `atoms`, `molecules`, and `organisms`. An `atom` is the smallest unit of the design system, for example a button or a link. A more complex `molecule` pattern may be composed by assembling a collection of `atom`-level patterns, for example a teaser within a listing. An `organism` is more complex again, and may comprise a number of included `atoms` and `molecules`. We discovered that it's not really worth trying to impose a strict hierarchy to distinguish `molecules` from `organisms`. It's okay for `molecules` to contain other `molecules` as well as `atoms`, and for `organisms` to contain `organisms` as well as lower-order patterns. With only 3 hierarchy levels to play with, we found we got most benefit from a pragmatic interpretation of the atomic design hierarchy.
+Atomic Design considers reusable, composable design patterns in a hierarchy described in terms of `atoms`, `molecules`, and `organisms`. An `atom` is the smallest unit of the design system, for example a button or a link. A more complex `molecule` pattern may be composed by assembling a collection of `atom`-level patterns, for example a teaser within a listing. An `organism` is more complex again, and may comprise a number of included `atoms` and `molecules`. We discovered that it's not really worth trying to impose a strict hierarchy to distinguish `molecules` from `organisms`. Whilst trying generally to maintain the distinction that `organisms` are a higher order pattern than `molecules`, it's okay for `molecules` to contain other `molecules` as well as `atoms`, and for `organisms` to contain `organisms` as well as lower-order patterns. With only 3 hierarchy levels to play with, we found we got most benefit from a pragmatic interpretation of the atomic design hierarchy.
 
 Having decided on atomic design, we chose [PatternLab](http://patternlab.io/) as the natural tool to deliver it. PatternLab uses [mustache templating](http://mustache.github.io/) and provides a web interface to display the patterns next to the markup that defines them, along with any optional annotations you may wish to supply. Since we started the project, other pattern library candidates have appeared that may have served just as well, for example [Fractal](https://fractal.build/), but they weren't available then; PatternLab was the the best available tool at the time, and it has served us well.
 
@@ -52,7 +54,7 @@ No one likes waiting for a web page to load, and if it takes too long, users wil
 ##### Accessible
 {:.no_toc}
 
-It's not just best practice, but a legal requirement to make sure that the site is accessible to read and use. We would test each pattern's accessibility as part of building it.
+It's vital that our site content is accessible to all to read and use. We decided to test each pattern's accessibility as part of building it using Kahn Academy's [tota11y](https://khan.github.io/tota11y/) for accessibility testing in the browser.
 
 #### Maintain the value of the pattern library
 {:.no_toc}
@@ -115,11 +117,11 @@ With two front end developers liaising closely with the product team (the design
 
 ### Tickets
 
-The principle of progressive enhancement affected the tickets we created: each pattern had a **first pass** ticket for building its markup and css. We used a checklist to manage the work for each ticket:
+The principle of progressive enhancement affected the tickets we created: each pattern had a **first pass** ticket for building its markup and CSS. We used a checklist to manage the work for each ticket:
 
 - semantic html is built
 - CSS is applied correctly
-- core content and functionality is available without JavaSctipt or CSS
+- core content and functionality is available without JavaScript or CSS
 - accessibility testing performed
 - browser testing performed
 
@@ -167,7 +169,7 @@ We discovered in the first retrospective that the product team were not feeling 
 
 ### Code management
 
-Pull requests on GitHub from feature branches into the [master branch](https://github.com/elifesciences/pattern-library).
+Pull requests on GitHub from feature branches into the master branch.
 
 
 ## Build
@@ -184,7 +186,7 @@ Each pattern comprises:
 
 ### Basic build pipeline
 
-Although PatternLab can compile scss, we elected to only use the mustache rendering part of PatternLab, as we wanted to keep control of all production code generation. We started off with a minimal build pipeline, originally in Grunt, but quickly switching to Gulp, knowing that we could add to it when we needed to. Initially it was only for linting and compiling scss, and moving asset files where they needed to be for the PatterLab server to display them correctly. 
+Although PatternLab can compile SCSS, we elected to only use the mustache rendering part of PatternLab, as we wanted to keep control of all production code generation. We started off with a minimal build pipeline, originally in Grunt, but quickly switching to Gulp, knowing that we could add to it when we needed to. Initially it was only for linting and compiling SCSS, and moving asset files where they needed to be for the PatternLab server to display them correctly. 
 
 ### SCSS
 
@@ -193,12 +195,12 @@ Although PatternLab can compile scss, we elected to only use the mustache render
 
 We agreed a few simple rules with the aim of keeping the CSS maintainable in the longer term:
 
-- one scss file per pattern
-- Use Harry Robert's flavour of BEM (Block, Element, Modifier) for CSS class naming. This works well with a pattern-based approach, as the root of each pattern can define a BEM block. Coupled with the decision to have one scss file per pattern, this namespacing kept the separation of the styles for individial patterns nice and clean.
-- keep selector specificity as low as possible by using soley classes unless impossible, and with a maximum selector nesting of 3 (not including pseudo elements). As selectors only need to start from the root of a pattern (or deeper), this seemed a pragmatic maximum. We agreed that we'd increase it if we really, _really_ needed to, but up to now we haven't had to.
+- one SCSS file per pattern
+- Use Harry Robert's flavour of BEM (Block, Element, Modifier) for CSS class naming. This works well with a pattern-based approach, as the root of each pattern can define a BEM block. Coupled with the decision to have one SCSS file per pattern, this namespacing kept the separation of the styles for individial patterns nice and clean.
+- keep selector specificity as low as possible, and with a maximum selector nesting of 3 (not including pseudo elements). As selectors only need to start from the root of a pattern (or deeper), this seemed a pragmatic maximum. We agreed that we'd increase it if we really, _really_ needed to, but up to now we haven't had to.
 - don't use `&` as partial completion for a class name, as it makes searching/refactoring across a code base more error-prone.
 - [avoid `@extends`](https://www.sitepoint.com/avoid-sass-extend/), use mixins instead for greater flexibility.
-- only mixins that are completely pattern-specific may live in a pattern's scss file, other mixins must live in higher-level files (see Architecture).
+- only mixins that are completely pattern-specific may live in a pattern's SCSS file, other mixins must live in higher-level files (see Architecture).
 - list property names alphabetically
 
 We implemented style linting with stylelint.
@@ -206,13 +208,14 @@ We implemented style linting with stylelint.
 #### Architecture
 {:.no_toc}
 
-- We used [Nicholas Gallagher's `normalise` stylesheet](http://nicolasgallagher.com/about-normalize-css/) as an scss partial, with some overrides we felt we needed defined in a separate  `normalise-overrides` partial.
 - Meaningful values for the design system: colours, font-sizes, quantities for spacing and element sizing, media query breakpoints, and transition parameters etc. are defined in the `variables` partial.
-- The typography component of the design system is defined in the `typographic-hierarchy` partial: this contains numerous mixins responsible for enforcing a consistent typographic style across the site. [TODO: More about this?]
-- the `grid` partial contains all scss and mixins required for both the horizontal and vertical grid systems
+- For a sensible reset starting point we included [Nicholas Gallagher's `normalise` stylesheet](http://nicolasgallagher.com/about-normalize-css/) as an SCSS partial
+- our own base styles, and any necessary overrides to `normalise` were defined the `normalise-overrides` partial.
+- The typography component of the design system is defined in the `typographic-hierarchy` partial: this contains numerous mixins responsible for enforcing a consistent typographic style across the site.
+- the `grid` partial contains all SCSS and mixins required for both the horizontal and vertical grid systems
 - the `mixins` partial contains all other mixins
 
-These are imported along with the pattern-specific scss file to create the main build css file like this:
+These are imported along with the pattern-specific SCSS file to create the main build CSS file like this:
 
 ```
 build.scss
@@ -234,8 +237,171 @@ build.scss
 
 Each individual `[pattern].scss` file also imports the `definitions` partial so it has access to all the necessary shared knowledge of the design system as distilled into the variables and various mixins.
 
-With an eye on delivery over HTTP/2, we ensured that we could produce individual pattern-level css files as well as one main style file for traditional HTTP/1.1 delivery.
+With an eye on delivery over HTTP/2, we ensured that we could produce individual pattern-level CSS files as well as one main style file for traditional HTTP/1.1 delivery.
 
+#### Design system typography
+The designer documented the typographical part of the design system as a hierarchy of definitions. The lowest level is used to set relevent variables in `variables`, and set the base styles in `normalise-overrides`.
+
+<table>
+<caption>Example of base styles for design system typography</caption>
+<thead>
+<tr>
+<th>Style name</th>
+<th>Default narrow screen</th>
+<th>Media query</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>          
+<td>Body</td>
+<td>PT Serif 16px/1.5 space after 24px</td>
+<td>None</td>
+</tr>
+
+<tr>          
+<td>H1</td>
+<td>Avenir Next Demi Bold 24px/1.3</td>
+<td>Font-size 36px</td>
+</tr>
+
+<tr>          
+<td>H2</td>
+<td>Avenir Next Demi Bold 21px/1.3 space after 5px</td>
+<td>None</td>
+</tr>
+
+<tr aria-hidden="true">
+<td colspan="3">...</td>
+</tr>
+
+</tbody>
+</table>
+
+The media query column specifies what (if any) change occurs when a breakpoint is hit. Note that the breakpoints themselves are not specified here, to keep things loosely coupled. 
+
+These base styles are then used as part of the specification for the next level up:
+
+<table>
+<caption>Example of title styles, extending base styles</caption>
+<thead>
+<tr>
+<th>Style name</th>
+<th>Default narrow screen</th>
+<th>Media query</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>          
+<td>Title-lg</td>
+<td>PT Serif 16px/1.5 space after 24px</td>
+<td>None</td>
+</tr>
+
+<tr>          
+<td>Title-md</td>
+<td>h1 font-size 42px</td>
+<td>Font-size 54px</td>
+</tr>
+
+<tr>          
+<td>Title-sm</td>
+<td>h1 font-size 30px</td>
+<td>Font-size 44px</td>
+</tr>
+
+<tr>          
+<td>Title-xs</td>
+<td>h1</td>
+<td>Font-size 36px</td>
+</tr>
+
+<tr aria-hidden="true">
+<td colspan="3">...</td>
+</tr>
+
+</tbody>
+</table>
+
+These all specify different title sizes (which one gets applied depends on how long the title is).
+
+Typographical styles are defined for all aspects of the design, like this tiny fraction of the set:
+    
+<table>
+<caption>Example of more typographical styles</caption>
+<thead>
+<tr>
+<th>Style name</th>
+<th>Default narrow screen</th>
+<th>Media query</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>          
+<td>CONTENT LABEL [grey]</td>
+<td>Avenir Next Demi Bold, 11px/1</td>
+<td>None</td>
+</tr>
+
+<tr>          
+<td>SUBJECT LABEL [blue]</td>
+<td>Avenir Next Demi Bold, 11px/1</td>
+<td>None</td>
+</tr>
+
+<tr>          
+<td>Article title (main list)</td>
+<td>h2</td>
+<td>None</td>
+</tr>
+
+<tr>          
+<td>Article title (side list)</td>
+<td>PT Serif Bold 16px</td>
+<td>None</td>
+</tr>
+
+<tr aria-hidden="true">
+<td colspan="3">...</td>
+</tr>
+
+
+</tbody>
+</table>
+
+and all these definitions are captured in mixins within `typographical-hierarchy`. For example, for the two labels, we abstract out the common aspects:
+```scss
+ // All typographical style mixin names include 'typeg' for clarity
+ // when viewed out of context. 
+ @mixin _label-typeg() {
+   font-family: $font-secondary;
+   font-weight: normal;
+   @include font-size-and-vertical-height(11);
+   letter-spacing: 0.5px;
+   text-transform: uppercase;
+ }
+```
+
+and then created a mixin for each label type, based on this:
+
+```scss
+@mixin label-content-typeg() {
+  @include _label-typeg();
+  color: $color-text-secondary;
+}
+
+@mixin label-subject-typeg() {
+  @include _label-typeg();
+  color: $color-primary;
+}
+```
+
+In the design system specification all the patterns have their typography defined in terms of these style names. Often a particular style name is used for more than one pattern. With this approach we can easily apply the correct typographical style to the pattern's CSS via the mixins, and at the same time, keep the design system highly maintainable. If a particular named style is updated, then a simple update to one mixin will permeate to all parts of the system that use it.
 
 ### Markup
 Compilation of the mustache templates with their json data files is handled by PatternLab, producing a user-friendly, to-some-extent-configurable [web view of the patterns](https://ui-patterns.elifesciences.org/).
@@ -270,20 +436,19 @@ PatternLab uses the `~` in a filename to identify a variant. The numerals in the
 Sometimes when coming to build a pattern with variants, we discovered that one or more variants required a significant change to the markup of the main pattern, which suggested a new pattern rather than just a variant. In this case we'd create the ticket(s) for it, and put them into the backlog, moving the appropriate spec from the old to the new ticket.
 
 ### Images
-The scholarly content contains a lot of figures, mainly in the form of images. We use [responsive images techniques](https://responsiveimages.org/) (`<picture>`, `srcset` and sometimes `sizes`), to stop the browser downloading more image data than it needs:
+The scholarly content contains a lot of figures, mainly in the form of images. We use [responsive images techniques](https://responsiveimages.org/) (`<picture>`, `srcset` and sometimes `sizes`), to stop the browser downloading more image data than it needs. The compiled HTML from the mustache template looks like this:
 
-```
-
+``` html
 <figure class="captioned-asset">
 
   <picture class="captioned-asset__picture">
     <source 
       srcset="
         /path-to-1076-px-wide-image 1076w, 
-        /path-to-1076-px-wide-image 538w" 
+        /path-to-538-px-wide-image 538w" 
       type="image/jpeg" />
     <img 
-      src="/path-to-1076-px-wide-image 538w" 
+      src="/path-to-538-px-wide-image" 
       alt=""
       class="captioned-asset__image" />
   </picture>         
@@ -347,9 +512,8 @@ It'd be great to improve the loader so that only the components on a particular 
 Because we have a 1:1 relationship between JavaScript component and pattern, we should be able to support HTTP/2 delivery of individual JavaScript assets, only providing what is required to the client (once we've upgraded our CDN).
 
 ### JavaScript testing
-{:.no_toc}
 
-We test in the browser using the tripod of the [mocha](https://mochajs.org/) test framework, the [chai](http://chaijs.com/) assertion library, and with [sinon](http://sinonjs.org/) for providing spies, mocks and stubs. At the moment we're using phantomjs as the local test environment, but now that's not under active maintenance we're looking to switch to using puppeteer with headless Chrome.
+We test in the browser using the tripod of the [mocha](https://mochajs.org/) test framework, the [chai](http://chaijs.com/) assertion library, and with [sinon](http://sinonjs.org/) for providing spies, mocks and stubs. At the moment we're using phantomjs as the test environment, but now that's not under active maintenance we're looking to switch to using puppeteer with headless Chrome.
 
 For each pattern under test there are two files: the spec file and the fixture file. The spec file is the file that contains the tests. The fixture file is an HTML file that contains the HTML of the pattern under test. This is obtained by finding the pattern's compiled HTML file as generated by PatternLab, and manually copying out the relavent code.  We've found that keeping the test fixtures up to date can be difficult because it takes a developer to remember to do this every time the pattern's source or source-generating JavaScript is updated.
 
@@ -365,46 +529,25 @@ JavaScript: [mocha](https://mochajs.org/)/[chai](http://chaijs.com/)/[sinon](htt
 
 Functional: [Webdriver.io](http://webdriver.io/) with the JavaScript testing tools above.
 
+ I'll wrap up with drawing out a few lessons we learned along the way, and some of the things we'd like to do next. 
 
-## Notes - not part of the post #
+## Lessons learned
 
+- Take the time to agree your principles and build aims up front. Set the expectations that derive from these in the wider team, so no one's surprised when you start challenging demands for moreLibrareez, etc.
+- When following atomic design principles, don't worry too much about strict molecule/organism heirarchy: get it as good as you can, but a slighly fuzzy, useable system is better than a system that's strictly correct but horrible to use.
+- Implementing a design system requires excellent communication between designers and front end devs. A designer who understands front end code, and developers with a design eye, both really help with this: the more shared context, the better the mutual understanding.
+- Regularly review your process: if we hadn't had the retrospective that uncovered the frustrations of the product team over sign off, work quality could have been reduced and relationships strained.
+- Don't be afraid to iterate on the patterns, and set the expectation early that this is a good thing. More complex patterns, and/or patterns that have multiple variants may need a few shots at them to make them work. Remember that if you're implementing a design system, the patterns don't only have to work individually, but they have to be easily maintainable along with the design system. It's worth spending more time to iterate to get it right at this stage, because fundamental changes later are bound to be more expecsive in time, effort and complexity.
+- Concentrating the design system typography in one place made thinking about it, talking about it, and subsequently, maintaining it, a lot easier than it might otherwise have been.
+- TDD FTW! The few times we didn't use test-driven development for the JavaScript, it was always painful to fill in the gaps afterwards.
 
-## CI
-## End of part 1
+<!-- What's next? There're a few things I'd really like to get sorted out:
 
-# Part 2: Pattern integration
-## TL;DR
-## statement of traditional problem 
-## recapitulate microservices from part 1
-## describe architecture of our approach to a solution to the traditional problem
-## Introduce 'view models'
-## Pattern library third pass: data model definition & reworking 
-
-
-## Orphans:
-- instrumentation (new relic)
-- H/2
-
-    
-    
-
-## The meta
-This describes 18 months' work. As such there's a lot to record. Not all of it will be relavent to the post(s?), but don't want to miss anything important, so:
-
- - First pass: all the details: what and why
- - Second pass: work out who it's for, tell the story to them
+- Modify the JavaScript loading so that only the required code is loaded per page (or as close as we can get to this)
+- fine tune asset delivery over HTTP/2 (this will require a change to our CDN first)          
+-->
 
 
-(- IIIF with responsive images markup works well (P))
+## In conclusion
 
-
-## stuff we still want to do
-- make it easy to upgrade PL inside the pattern library
-- build an adapter for our patterns in a different language
-- functional test layer
-
-# To metion:
-
-- IIIF
-- responsive images with IIIF
-
+This is one of the most rewarding projects I've worked on: a truly honourable combination of open source code enabling open access science publishing. There's loads more I could say, but this post is already long enough. Be sure to check back soon for the second post in the series: about how we solved pattern rot through using the patterns we built in PatternLab directly in the website.
