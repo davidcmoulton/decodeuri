@@ -1,10 +1,11 @@
 ---
 layout: post
 title: "Building a pattern library for scholarly publishing"
+desc: "Open source software for open access publishing."
 ---
 
 
-This post describes an approach to building a pattern library for a brand new version of an existing academic science journal in a way that makes the design system and the pattern library codebase highly flexible and maintainable.
+Describes an approach to building a pattern library to implement a design system for an open access science journal. The approach makes the design system and the pattern library codebase highly flexible and maintainable.
 
 ## Contents
 {:.no_toc}
@@ -14,17 +15,17 @@ This post describes an approach to building a pattern library for a brand new ve
 
 
 ## Introduction
-I recently had the privilege of being involved in the ground up rebuild of an [online science journal](https://elifesciences.org). Not just the front end, the whole stack was being rebuilt from scratch using a microservices approach. The journal is building a reputation for innovation in science publishing, and it was a great opportunity to get involved in a green field project to build best web practise into this arena. In this post I'll be focusing on how we built the front end. A second post is planned about how we integrated the pattern library into the site.
+I recently had the privilege of being involved in the ground up rebuild of an [online science journal](https://elifesciences.org). The whole stack was rebuilt from scratch using a microservices approach. The journal is building a reputation for innovation in science publishing, and it was a great opportunity to get involved in a green field project to build best web practise into this arena.  In this post I'll be focusing on how we built the front end. A second post is planned about how we integrated the pattern library into the site.
 
-Note that the code examples are likely to have been simplified for clarity.
+Note that the code examples have been simplified for clarity.
 
 
 ## Deciding on an approach
 
 ### Design systems and Atomic Design
-During the design phase I had many constructive conversations with the designer, including prototyping some ideas to help decide on an overall approach to various design aspects. He decided we needed a design system in order to retain both flexibility and design coherence for not only what we were building now, but what we might want to build in the future.
+During the design phase I had many constructive conversations with the designer, including prototyping some ideas to help decide on an overall approach to various things. He decided we needed a design system in order to retain both flexibility and design coherence for not only what we were building now, but what we might want to build in the future.
 
-Building a design system requires a modular, hierarchical approach, and this approach is well supported by using a pattern library. Brad Frost's [Atomic Design](http://bradfrost.com/blog/post/atomic-web-design/) concept was a natural fit with the designer's way of thinking about the new design, and so we chose atomic design as the mental model for our new site design approach.
+Building a design system requires a modular, hierarchical approach, and this approach is well supported by using a pattern library. Brad Frost's [Atomic Design](http://bradfrost.com/blog/post/atomic-web-design/) principles are a natural fit with the designer's concept for the design system, and so we chose atomic design as the mental model for our new site design.
 
 Atomic Design considers reusable, composable design patterns in a hierarchy described in terms of `atoms`, `molecules`, and `organisms`. An `atom` is the smallest unit of the design system, for example a button or a link. A more complex `molecule` pattern may be composed by assembling a collection of `atom`-level patterns, for example a teaser within a listing. An `organism` is more complex again, and may comprise a number of included `atoms` and `molecules`. We discovered that it's not really worth trying to impose a strict hierarchy to distinguish `molecules` from `organisms`. Whilst trying generally to maintain the distinction that `organisms` are a higher order pattern than `molecules`, it's okay for `molecules` to contain other `molecules` as well as `atoms`, and for `organisms` to contain `organisms` as well as lower-order patterns. With only 3 hierarchy levels to play with, we found we got most benefit from a pragmatic interpretation of the atomic design hierarchy.
 
@@ -54,14 +55,14 @@ No one likes waiting for a web page to load, and if it takes too long, users wil
 ##### Accessible
 {:.no_toc}
 
-It's vital that our site content is accessible to all to read and use. We decided to test each pattern's accessibility as part of building it using Kahn Academy's [tota11y](https://khan.github.io/tota11y/) for accessibility testing in the browser.
+It's vital that our site content is accessible to all to read and use.
 
 #### Maintain the value of the pattern library
 {:.no_toc}
 
-One of the aims of a pattern library is to be the canonical source of truth for the design and front end implementation of all the design patterns across a site. This is great at launch, but it's common for the value of a pattern library to drop dramatically over time if it's not easy to update, or is difficult to do so in a way that retains the philosophy of the design system.
+One of the aims of a pattern library is to be the canonical source of truth for the design and front end implementation of the design patterns. This is great at launch, but it's common for the value of a pattern library to drop dramatically over time if it's not easy to update, or it's difficult to do so in a way that maintains the value of the underlying design system.
 
-Even if they're reasonably easy to update, they often become susceptible to 'pattern rot' over time. Pattern rot is what can easily happen when patterns can be updated by making the change to the pattern library, and then copying and pasting the changes to the production website. Perhaps there's an urgent change to be made, and the developer feels that although the pattern library _should_ be updated first and then ported to the site, it's most important to get the change onto the site, and so the site is updated, and perhaps the developer doesn't quite get round to updating the pattern library later afterall. It's easily done: everyone's busy... The problem is that once the site and the pattern library have diverged, the value of having a pattern library is substantially reduced. Because it is no longer the canonical source of truth, so you can no  longer have complete confidence that what you see in the pattern library is what you get on the site, and so a lot of the work that went into building the pattern library becomes lost.    
+After launch, pattern libraries are often susceptible to 'pattern rot', when for whatever reason the patterns used on the live website are updated, but the pattern library is not. This usually occurs when there is some kind of copy/paste step necessary in order to apply an update from a pattern library pattern to its version on the live site. This step only has to be short-circuited once by the update being applied only to the live site, for the pattern library and the live site to diverge. Once this happens, the pattern library is no longer the canonical source of truth, so you can no longer have complete confidence that what you see in the pattern library is what you get on the site. Much of the work that went into building the pattern library becomes lost.
 
 So to retain the value of the pattern library, it must:
 
@@ -71,8 +72,6 @@ So to retain the value of the pattern library, it must:
  
  Integration is the hardest problem to solve, and has been the holy grail for pattern libraries for years. We managed to crack this nut; how we did that will be the topic of a subsequent post.
  
- This post focuses on how we built the pattern library in a way that makes the design system and the pattern library codebase maintainable for the foreseeable future.     
-
 #### Aims
 {:.no_toc}
 
@@ -184,6 +183,10 @@ Each pattern comprises:
 - Zero or one `.js` files, built in the second pass
 - Exactly one `.yaml` file to define the data structure. This is helpful when integrating the patterns into the site, and will be expanded on in a separate post.
 
+Each pattern's accessibility was tested using Khan Academy's [tota11y](https://khan.github.io/tota11y/) for accessibility testing in the browser.
+
+We used [Browserstack](https://www.browserstack.com/) for browser/device testing. 
+
 ### Basic build pipeline
 
 Although PatternLab can compile SCSS, we elected to only use the mustache rendering part of PatternLab, as we wanted to keep control of all production code generation. We started off with a minimal build pipeline, originally in Grunt, but quickly switching to Gulp, knowing that we could add to it when we needed to. Initially it was only for linting and compiling SCSS, and moving asset files where they needed to be for the PatternLab server to display them correctly. 
@@ -196,7 +199,7 @@ Although PatternLab can compile SCSS, we elected to only use the mustache render
 We agreed a few simple rules with the aim of keeping the CSS maintainable in the longer term:
 
 - one SCSS file per pattern
-- Use Harry Robert's flavour of BEM (Block, Element, Modifier) for CSS class naming. This works well with a pattern-based approach, as the root of each pattern can define a BEM block. Coupled with the decision to have one SCSS file per pattern, this namespacing kept the separation of the styles for individial patterns nice and clean.
+- Use [Harry Robert's flavour of BEM](https://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/) (Block, Element, Modifier) for CSS class naming. This works well with a pattern-based approach, as the root of each pattern can define a BEM block. Coupled with the decision to have one SCSS file per pattern, this namespacing kept the separation of the styles for individial patterns nice and clean.
 - keep selector specificity as low as possible, and with a maximum selector nesting of 3 (not including pseudo elements). As selectors only need to start from the root of a pattern (or deeper), this seemed a pragmatic maximum. We agreed that we'd increase it if we really, _really_ needed to, but up to now we haven't had to.
 - don't use `&` as partial completion for a class name, as it makes searching/refactoring across a code base more error-prone.
 - [avoid `@extends`](https://www.sitepoint.com/avoid-sass-extend/), use mixins instead for greater flexibility.
@@ -215,7 +218,7 @@ We implemented style linting with stylelint.
 - the `grid` partial contains all SCSS and mixins required for both the horizontal and vertical grid systems
 - the `mixins` partial contains all other mixins
 
-These are imported along with the pattern-specific SCSS file to create the main build CSS file like this:
+These are imported along with the pattern-specific SCSS files to create the main build CSS file like this:
 
 ```
 build.scss
@@ -239,7 +242,7 @@ Each individual `[pattern].scss` file also imports the `definitions` partial so 
 
 With an eye on delivery over HTTP/2, we ensured that we could produce individual pattern-level CSS files as well as one main style file for traditional HTTP/1.1 delivery.
 
-#### Design system typography
+### Design system typography
 The designer documented the typographical part of the design system as a hierarchy of definitions. The lowest level is used to set relevent variables in `variables`, and set the base styles in `normalise-overrides`.
 
 <table>
@@ -401,7 +404,7 @@ and then created a mixin for each label type, based on this:
 }
 ```
 
-In the design system specification all the patterns have their typography defined in terms of these style names. Often a particular style name is used for more than one pattern. With this approach we can easily apply the correct typographical style to the pattern's CSS via the mixins, and at the same time, keep the design system highly maintainable. If a particular named style is updated, then a simple update to one mixin will permeate to all parts of the system that use it.
+In the design system specification, all the patterns have their typography defined in terms of these style names. Often a particular style name is used for more than one pattern. With this approach we can easily apply the correct typographical style to the pattern's CSS via the mixins, and at the same time, keep the design system highly maintainable. If a particular named style is updated, then a simple update to one `typeg` mixin will permeate to all parts of the system that use it.
 
 ### Markup
 Compilation of the mustache templates with their json data files is handled by PatternLab, producing a user-friendly, to-some-extent-configurable [web view of the patterns](https://ui-patterns.elifesciences.org/).
@@ -465,7 +468,7 @@ Note the empty `alt` attribute: as the image is within a `<figure>`, the `<figca
 
 To handle the large amount of image variants that can be required when implementing responsive images, we used the [International Image Interoperability Framework](http://iiif.io/) (IIIF) [to serve most of our images](https://elifesciences.org/labs/d6044799/dynamically-serving-scientific-images-using-iiif).
 
-## Extended build pipeline
+### Extended build pipeline
 When we came to build the patterns' behaviours, we added JavaScript linting, transpiling and test running to the Gulp pipeline. When we started this project at the beginning of 2016, ES2015 was the stable transpilation target, so that's what ours is set to. Over 18 months, the JavaScript/Browser landscape has changed considerably, and we'll be reviewing this farily soon.
 
 We're using Babel to transpile, a mixture of jshint and jscs for linting (there'a a pending upgrade to eslint).
@@ -518,18 +521,6 @@ We test in the browser using the tripod of the [mocha](https://mochajs.org/) tes
 For each pattern under test there are two files: the spec file and the fixture file. The spec file is the file that contains the tests. The fixture file is an HTML file that contains the HTML of the pattern under test. This is obtained by finding the pattern's compiled HTML file as generated by PatternLab, and manually copying out the relavent code.  We've found that keeping the test fixtures up to date can be difficult because it takes a developer to remember to do this every time the pattern's source or source-generating JavaScript is updated.
 
 The tests are run under Gulp using `gulp-mocha-phantomjs`. 
-
-### Testing
-
-Accessibility: Kahn Academy's [tota11y](https://khan.github.io/tota11y/) for accessibility testing in the browser.
-
-Browser/device testing: [Browserstack](https://www.browserstack.com/)
-
-JavaScript: [mocha](https://mochajs.org/)/[chai](http://chaijs.com/)/[sinon](http://sinonjs.org/) (see [https://blog.codeship.com/mocha-js-chai-sinon-frontend-javascript-code-testing-tutorial/](https://blog.codeship.com/mocha-js-chai-sinon-frontend-javascript-code-testing-tutorial/) for example of helpful post to get you up and running).
-
-Functional: [Webdriver.io](http://webdriver.io/) with the JavaScript testing tools above.
-
- I'll wrap up with drawing out a few lessons we learned along the way, and some of the things we'd like to do next. 
 
 ## Lessons learned
 
