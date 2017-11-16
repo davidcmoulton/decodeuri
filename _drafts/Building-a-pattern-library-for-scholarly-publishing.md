@@ -14,7 +14,7 @@ This post describes an approach to building a pattern library for a brand new ve
 
 
 ## Introduction
-I recently had the privilege of being involved in the ground up rebuild of an [online science journal](https://elifesciences.org). Not just the front end, the whole stack was being rebuilt from scratch using a microservices approach. The journal is building a reputation for innovation in science publishing, and it was a great opportunity to get involved in a green field project to build best web practice into this arena. In this post I'll be focusing on how we built the front end. A second post is planned about how we integrated the pattern library into the site.
+I recently had the privilege of being involved in the ground up rebuild of an [online science journal](https://elifesciences.org). Not just the front end, the whole stack was being rebuilt from scratch using a microservices approach. The journal is building a reputation for innovation in science publishing, and it was a great opportunity to get involved in a green field project to build best web practise into this arena. In this post I'll be focusing on how we built the front end. A second post is planned about how we integrated the pattern library into the site.
 
 
 ## Deciding on an approach
@@ -22,14 +22,14 @@ I recently had the privilege of being involved in the ground up rebuild of an [o
 ### Design systems and Atomic Design
 During the design phase I had many constructive conversations with the designer, including prototyping some ideas to help decide on an overall approach to various design aspects. He decided we needed a design system in order to retain both flexibility and design coherence for not only what we were building now, but what we might want to build in the future.
 
-Building a design system requires a modular, hierarchical approach, and this approach is well supported by using a pattern library. Brad Frost's [Atomic Design](http://bradfrost.com/blog/post/atomic-web-design/) concept was a natural fit with the designer's way of thinking about the new design, and so it was that we chose the atomic design as the mental model for our new site design approach.
+Building a design system requires a modular, hierarchical approach, and this approach is well supported by using a pattern library. Brad Frost's [Atomic Design](http://bradfrost.com/blog/post/atomic-web-design/) concept was a natural fit with the designer's way of thinking about the new design, and so we chose atomic design as the mental model for our new site design approach.
 
-Atomic Design considers reusable, composable design patterns in a heirarchy described in terms of `atoms`, `molecules`, and `organisms`. An `atom` is the smallest unit of the design system, for example a button or a link. A more complex `molecule` pattern may be composed by assembling a collection of `atom`-level patterns, for example a teaser within a listing. An `organism` is more complex again, and may comprise a number of included `atoms` and `molecules`. We discovered that it's not really worth trying to impose a strict hierarchy to distinguish `molecules` from `organisms`. It's okay for `molecules` to contain other `molecules` as well as `atoms`, and for `organisms` to contain `organisms` as well as lower-order patterns. With only 3 hierarchy levels to play with, we found we got most benefit from such a pragmatic interpretation of the atomic design hierarchy.
+Atomic Design considers reusable, composable design patterns in a hierarchy described in terms of `atoms`, `molecules`, and `organisms`. An `atom` is the smallest unit of the design system, for example a button or a link. A more complex `molecule` pattern may be composed by assembling a collection of `atom`-level patterns, for example a teaser within a listing. An `organism` is more complex again, and may comprise a number of included `atoms` and `molecules`. We discovered that it's not really worth trying to impose a strict hierarchy to distinguish `molecules` from `organisms`. It's okay for `molecules` to contain other `molecules` as well as `atoms`, and for `organisms` to contain `organisms` as well as lower-order patterns. With only 3 hierarchy levels to play with, we found we got most benefit from a pragmatic interpretation of the atomic design hierarchy.
 
-Having decided on atomic design, we chose [PatternLab](http://patternlab.io/) as the natural tool to deliver it. PatternLab uses [mustache templating](http://mustache.github.io/) and provides a web interface to display the patterns next to the markup that defines them, along with any optional annotations you may wish to supply. Since we started the project, other pattern library candidates have appeared that may have served just as well, for example [Fractal](https://fractal.build/), but they just weren't available back then; PatternLab was the the best available tool at the time, and it has served us well.
+Having decided on atomic design, we chose [PatternLab](http://patternlab.io/) as the natural tool to deliver it. PatternLab uses [mustache templating](http://mustache.github.io/) and provides a web interface to display the patterns next to the markup that defines them, along with any optional annotations you may wish to supply. Since we started the project, other pattern library candidates have appeared that may have served just as well, for example [Fractal](https://fractal.build/), but they weren't available then; PatternLab was the the best available tool at the time, and it has served us well.
 
 ### Principles
-Before starting work, we agreed a set of principles that would guide our approach to decision making along the way.
+Before starting work, we agreed a set of principles that would guide our approach to decision-making along the way.
  
 #### Don't lock out the readers
 {:.no_toc}
@@ -37,7 +37,7 @@ Before starting work, we agreed a set of principles that would guide our approac
 ##### Progressively enhanced
 {:.no_toc}
 
-A reader could be anywhere in the world on any platform. It's vital that the content (mainly results of scientific research), and core functionality be available to everyone, regardless of platform, so we couldn't mandate a high technological baseline in order to read the journal. For this reason, and to be a good web citizen generally, we would use a [progessive enhancement](https://alistapart.com/article/understandingprogressiveenhancement) approach to ensure that JavaScript is not required to use the site: you get an enhanced experience if it's available, but content and core functionality does not require it.
+A reader could be on any platform anywhere in the world. It's vital that the content (mainly results of scientific research), and core functionality be available to everyone, regardless of platform, so we couldn't mandate a high technological baseline in order to read the journal. For this reason, and to be a good web citizen generally, we would use a [progessive enhancement](https://alistapart.com/article/understandingprogressiveenhancement) approach to ensure that JavaScript is not required to use the site: you get an enhanced experience if it's available, but content and core functionality does not require it.
 
 ##### Responsive
 {:.no_toc}
