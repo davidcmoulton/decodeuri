@@ -269,6 +269,37 @@ PatternLab uses the `~` in a filename to identify a variant. The numerals in the
 
 Sometimes when coming to build a pattern with variants, we discovered that one or more variants required a significant change to the markup of the main pattern, which suggested a new pattern rather than just a variant. In this case we'd create the ticket(s) for it, and put them into the backlog, moving the appropriate spec from the old to the new ticket.
 
+### Images
+The scholarly content contains a lot of figures, mainly in the form of images. We use [responsive images techniques](https://responsiveimages.org/) (`<picture>`, `srcset` and sometimes `sizes`), to stop the browser downloading more image data than it needs:
+
+```
+
+<figure class="captioned-asset">
+
+  <picture class="captioned-asset__picture">
+    <source 
+      srcset="
+        /path-to-1076-px-wide-image 1076w, 
+        /path-to-1076-px-wide-image 538w" 
+      type="image/jpeg" />
+    <img 
+      src="/path-to-1076-px-wide-image 538w" 
+      alt=""
+      class="captioned-asset__image" />
+  </picture>         
+
+  <figcaption class="captioned-asset__caption">          
+    <h6 class="caption-text__heading">Title of the figure caption</h6>
+      <div class="caption-text__body">The figure caption</div>
+      <span class="doi doi--asset">The DOI link</span>
+  </figcaption>
+
+</figure>
+  ```
+Note the empty `alt` attribute: as the image is within a `<figure>`, the `<figcaption>` provides the description.
+
+To handle the large amount of image variants that can be required when implementing responsive images, we used the [International Image Interoperability Framework](http://iiif.io/) (IIIF) [to serve most of our images](https://elifesciences.org/labs/d6044799/dynamically-serving-scientific-images-using-iiif).
+
 ## Extended build pipeline
 When we came to build the patterns' behaviours, we added JavaScript linting, transpiling and test running to the Gulp pipeline. When we started this project at the beginning of 2016, ES2015 was the stable transpilation target, so that's what ours is set to. Over 18 months, the JavaScript/Browser landscape has changed considerably, and we'll be reviewing this farily soon.
 
