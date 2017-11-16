@@ -5,7 +5,7 @@ desc: "Open source software for open access publishing."
 ---
 
 
-Describes an approach to building a pattern library to implement a design system for an open access science journal. The approach makes the design system and the pattern library codebase highly flexible and maintainable.
+Describes building a pattern library implementing a design system for an open access science journal. The approach taken makes both the design system and the pattern library codebase highly flexible and maintainable.
 
 ## Contents
 {:.no_toc}
@@ -15,9 +15,9 @@ Describes an approach to building a pattern library to implement a design system
 
 
 ## Introduction
-I recently had the privilege of being involved in the ground up rebuild of an [online science journal](https://elifesciences.org). The whole stack was rebuilt from scratch using a microservices approach. The journal is building a reputation for innovation in science publishing, and it was a great opportunity to get involved in a green field project to build best web practise into this arena.  In this post I'll be focusing on how we built the front end. A second post is planned about how we integrated the pattern library into the site.
+I recently had the privilege of being involved in the ground up rebuild of an [online science journal](https://elifesciences.org). The whole stack was rebuilt from scratch using a microservices approach. The journal is building a reputation for innovation in science publishing, and it was a great opportunity to get involved in a green field project to build best web practise into this arena.  In this post I'll be focusing on how we built the front end. A companion post is planned about how we integrated the pattern library into the site.
 
-Note that the code examples have been simplified for clarity.
+Note that the code examples have been simplified for clarity.  
 
 
 ## Deciding on an approach
@@ -64,13 +64,13 @@ One of the aims of a pattern library is to be the canonical source of truth for 
 
 After launch, pattern libraries are often susceptible to 'pattern rot', when for whatever reason the patterns used on the live website are updated, but the pattern library is not. This usually occurs when there is some kind of copy/paste step necessary in order to apply an update from a pattern library pattern to its version on the live site. This step only has to be short-circuited once by the update being applied only to the live site, for the pattern library and the live site to diverge. Once this happens, the pattern library is no longer the canonical source of truth, so you can no longer have complete confidence that what you see in the pattern library is what you get on the site. Much of the work that went into building the pattern library becomes lost.
 
-So to retain the value of the pattern library, it must:
+In summary, for a pattern library to retain its value, it must:
 
  1. be built in such a way as to reflect the intent of the design system  
  1. be easy to maintain
- 1. be easy to integrate
+ 1. be easy to integrate (avoid 'pattern rot')
  
- Integration is the hardest problem to solve, and has been the holy grail for pattern libraries for years. We managed to crack this nut; how we did that will be the topic of a subsequent post.
+ Integration is the hardest problem to solve, and has been the holy grail for pattern libraries for years. We managed to crack this, but you'll have to wait for the companion post to find out how.
  
 #### Aims
 {:.no_toc}
@@ -105,9 +105,9 @@ Maintainability doesn't negatively impact performance.
 ### Identifying and naming the patterns
 Before we could build any patterns, we needed to identify what things we were building, and decide how to talk about them: without a common vocabulary, things could fall apart very quickly. So to embark on building a brand new look for an online only journal, we took a large slice of irony pie and started by printing off wireframes of all the patterns.
 
-Having cut out each pattern, we grouped similar ones together on the floor which enabled us to determine which were essentially duplicates, to identify those we could treat as variants of the same underlying pattern, and to confirm which were actually distinct patterns.
+Having cut out each pattern, we took up most of the floor of the room we were in, laying them out to take stock of what we had. We grouped similar patterns together, enabling us to distinguish those that were essentially duplicates from those we could treat as variants of the same underlying pattern, and to confirm which were actually distinct patterns.
 
-Once distinct patterns were identified, we opened up the room to anyone who wanted to help out as we agreed a name for each pattern. Having fresh minds at this point helped us get better names for the patterns.
+Once distinct patterns were identified, we opened up the room to anyone who wanted to help us agree names for each pattern. Having fresh minds at this point helped us get better names.
 
 We thought the whole process would take a couple of hours, but it took most of a day to complete. The benefits were well worth the time: it was a great way to expose many hidden assumptions, identify gaps in thinking, and discover inconsistencies that had crept in during the design process. If we hadn’t done the exercise, all those problems would still exist, but they’d only manifest later when they’d be more expensive in time and effort to fix.
 
@@ -116,7 +116,7 @@ With two front end developers liaising closely with the product team (the design
 
 ### Tickets
 
-The principle of progressive enhancement affected the tickets we created: each pattern had a **first pass** ticket for building its markup and CSS. We used a checklist to manage the work for each ticket:
+The fact we were using progressive enhancement affected the tickets we created: each pattern had a **first pass** ticket for building its markup and CSS. We used a checklist to manage the work for each ticket:
 
 - semantic html is built
 - CSS is applied correctly
@@ -173,7 +173,7 @@ Pull requests on GitHub from feature branches into the master branch.
 
 ## Build
 
-In total so far (we launched in June 2017, but a website's never 'done') we've built just under 100 patterns.
+In total so far (we launched in June 2017, but a website's never 'done'), we've built just under 100 patterns.
 
 Each pattern comprises:
 
@@ -181,7 +181,7 @@ Each pattern comprises:
 - Exactly one `.mustache` file
 - One or more `.json` files, one per pattern variant
 - Zero or one `.js` files, built in the second pass
-- Exactly one `.yaml` file to define the data structure. This is helpful when integrating the patterns into the site, and will be expanded on in a separate post.
+- Exactly one `.yaml` file to define the data structure. This is helpful when integrating the patterns into the site, and will be expanded on in the forthcoming companion post.
 
 Each pattern's accessibility was tested using Khan Academy's [tota11y](https://khan.github.io/tota11y/) for accessibility testing in the browser.
 
@@ -189,14 +189,14 @@ We used [Browserstack](https://www.browserstack.com/) for browser/device testing
 
 ### Basic build pipeline
 
-Although PatternLab can compile SCSS, we elected to only use the mustache rendering part of PatternLab, as we wanted to keep control of all production code generation. We started off with a minimal build pipeline, originally in Grunt, but quickly switching to Gulp, knowing that we could add to it when we needed to. Initially it was only for linting and compiling SCSS, and moving asset files where they needed to be for the PatternLab server to display them correctly. 
+Although PatternLab can compile SCSS, we elected not to do this as we wanted to control the SCSS compilation with the build pipeline. We started off with a minimal build pipeline, originally in [Grunt](https://gruntjs.com/) (we switched to [Gulp](https://gulpjs.com/) when we introduced JavaScript, see below), knowing that we could add to it when we needed to. Initially it was only for linting and compiling SCSS, and moving asset files where they needed to be for the PatternLab server to display them correctly. 
 
 ### SCSS
 
 #### Style
 {:.no_toc}
 
-We agreed a few simple rules with the aim of keeping the CSS maintainable in the longer term:
+We agreed a few simple rules with the aim of keeping the SCSS maintainable in the longer term:
 
 - one SCSS file per pattern
 - Use [Harry Robert's flavour of BEM](https://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/) (Block, Element, Modifier) for CSS class naming. This works well with a pattern-based approach, as the root of each pattern can define a BEM block. Coupled with the decision to have one SCSS file per pattern, this namespacing kept the separation of the styles for individial patterns nice and clean.
@@ -212,10 +212,10 @@ We implemented style linting with stylelint.
 {:.no_toc}
 
 - Meaningful values for the design system: colours, font-sizes, quantities for spacing and element sizing, media query breakpoints, and transition parameters etc. are defined in the `variables` partial.
-- For a sensible reset starting point we included [Nicholas Gallagher's `normalise` stylesheet](http://nicolasgallagher.com/about-normalize-css/) as an SCSS partial
-- our own base styles, and any necessary overrides to `normalise` were defined the `normalise-overrides` partial.
+- For a sensible reset starting point we included [Nicholas Gallagher's `normalise` CSS stylesheet](http://nicolasgallagher.com/about-normalize-css/) as an SCSS partial
+- our own base styles, and any necessary overrides to `normalise` are defined in the `normalise-overrides` partial.
 - The typography component of the design system is defined in the `typographic-hierarchy` partial: this contains numerous mixins responsible for enforcing a consistent typographic style across the site.
-- the `grid` partial contains all SCSS and mixins required for both the horizontal and vertical grid systems
+- the `grid` partial contains all SCSS and mixins required for both the horizontal and baseline grid systems
 - the `mixins` partial contains all other mixins
 
 These are imported along with the pattern-specific SCSS files to create the main build CSS file like this:
@@ -240,9 +240,9 @@ build.scss
 
 Each individual `[pattern].scss` file also imports the `definitions` partial so it has access to all the necessary shared knowledge of the design system as distilled into the variables and various mixins.
 
-With an eye on delivery over HTTP/2, we ensured that we could produce individual pattern-level CSS files as well as one main style file for traditional HTTP/1.1 delivery.
+With an eye on delivery over HTTP/2, we ensured that we could produce individual pattern-level CSS files as well as one main stylesheet for traditional HTTP/1.1 delivery.
 
-### Design system typography
+### Organising the typography
 The designer documented the typographical part of the design system as a hierarchy of definitions. The lowest level is used to set relevent variables in `variables`, and set the base styles in `normalise-overrides`.
 
 <table>
@@ -282,7 +282,7 @@ The designer documented the typographical part of the design system as a hierarc
 </tbody>
 </table>
 
-The media query column specifies what (if any) change occurs when a breakpoint is hit. Note that the breakpoints themselves are not specified here, to keep things loosely coupled. 
+The media query column specifies what (if any) change occurs when a the viewport is wider than the relavent site breakpoint. Note that the breakpoints themselves are not specified here, to keep things loosely coupled. 
 
 These base styles are then used as part of the specification for the next level up:
 
@@ -390,7 +390,7 @@ and all these definitions are captured in mixins within `typographical-hierarchy
  }
 ```
 
-and then created a mixin for each label type, based on this:
+and then create a mixin for each label type, based on it:
 
 ```scss
 @mixin label-content-typeg() {
@@ -404,7 +404,9 @@ and then created a mixin for each label type, based on this:
 }
 ```
 
-In the design system specification, all the patterns have their typography defined in terms of these style names. Often a particular style name is used for more than one pattern. With this approach we can easily apply the correct typographical style to the pattern's CSS via the mixins, and at the same time, keep the design system highly maintainable. If a particular named style is updated, then a simple update to one `typeg` mixin will permeate to all parts of the system that use it.
+In the design system specification, all the patterns have their typography defined in terms of these typographical style names. Often a particular style name is used for more than one pattern. With this approach we can easily apply the correct typographical style to the pattern's CSS via the mixins, and at the same time, keep the design system highly maintainable. If a particular named style is updated, then a simple update to one `typeg` mixin will permeate to all parts of the system that use it.
+
+(N.B. These examples are taken from an early draft of the spec, and the final values used on the site may have changed, although the system defining them hasn't: indicating that it's working well!)
 
 ### Markup
 Compilation of the mustache templates with their json data files is handled by PatternLab, producing a user-friendly, to-some-extent-configurable [web view of the patterns](https://ui-patterns.elifesciences.org/).
@@ -439,7 +441,7 @@ PatternLab uses the `~` in a filename to identify a variant. The numerals in the
 Sometimes when coming to build a pattern with variants, we discovered that one or more variants required a significant change to the markup of the main pattern, which suggested a new pattern rather than just a variant. In this case we'd create the ticket(s) for it, and put them into the backlog, moving the appropriate spec from the old to the new ticket.
 
 ### Images
-The scholarly content contains a lot of figures, mainly in the form of images. We use [responsive images techniques](https://responsiveimages.org/) (`<picture>`, `srcset` and sometimes `sizes`), to stop the browser downloading more image data than it needs. The compiled HTML from the mustache template looks like this:
+The scholarly content contains a lot of figures, mainly in the form of images. We use [responsive images techniques](https://responsiveimages.org/) (`<picture>`, `srcset` and sometimes `sizes`), to stop the browser downloading more image data than it needs. For example, the compiled HTML from the `captioned-asset` pattern's mustache template looks like this:
 
 ``` html
 <figure class="captioned-asset">
