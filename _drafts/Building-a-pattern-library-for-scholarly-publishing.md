@@ -4,15 +4,17 @@ title: "Building a pattern library for scholarly publishing"
 ---
 
 
-## TL;DR
- - [sentence on pattern library awesomeness]
+This post describes an approach to building a pattern library for a brand new version of an existing academic science journal in a way that makes the design system and the pattern library codebase maintainable for the foreseeable future.
 
-This post describes an approach to building a pattern library for a brand new version of an existing site.... [write the abstract last!]
+## Contents
+{:.no_toc}
 
-This post focuses on how we built the pattern library in a way that makes the design system and the pattern library codebase maintainable for the foreseeable future.
+* ToC goes here
+{:toc}
+
 
 ## Introduction
-I recently had the privilege of being involved in the ground up rebuild of an [online science journal](https://elifesciences.org). Not just the front end, the whole stack was being rebuilt from scratch using a microservices approach. The journal is building a reputation for innovation in science publishing, and it was a great opportunity to get involved in a green field project to build best web practice into this arena. In this post I'll be focusing on how we built the front end.
+I recently had the privilege of being involved in the ground up rebuild of an [online science journal](https://elifesciences.org). Not just the front end, the whole stack was being rebuilt from scratch using a microservices approach. The journal is building a reputation for innovation in science publishing, and it was a great opportunity to get involved in a green field project to build best web practice into this arena. In this post I'll be focusing on how we built the front end. A second post is planned about how we integrated the pattern library into the site.
 
 
 ## Deciding on an approach
@@ -30,23 +32,34 @@ Having decided on atomic design, we chose [PatternLab](http://patternlab.io/) as
 Before starting work, we agreed a set of principles that would guide our approach to decision making along the way.
  
 #### Don't lock out the readers
+{:.no_toc}
 
-##### Progressively enhancemed
+##### Progressively enhanced
+{:.no_toc}
+
 A reader could be anywhere in the world on any platform. It's vital that the content (mainly results of scientific research), and core functionality be available to everyone, regardless of platform, so we couldn't mandate a high technological baseline in order to read the journal. For this reason, and to be a good web citizen generally, we would use a [progessive enhancement](https://alistapart.com/article/understandingprogressiveenhancement) approach to ensure that JavaScript is not required to use the site: you get an enhanced experience if it's available, but content and core functionality does not require it.
 
 ##### Responsive
+{:.no_toc}
+
 It should be a given these days, but it's worth mentioning anyway that the website should be [responsive](https://www.smashingmagazine.com/2011/01/guidelines-for-responsive-web-design/) so it will display appropriately, whatever the size of the users' screens.
 
-##### Performance
+##### Performant
+{:.no_toc}
+
 No one likes waiting for a web page to load, and if it takes too long, users will bail. If a user is on a narrow bandwidth or a high latency connection then any performance problems are exacerbated. Data costs vary across the world, and we don't want it to cost more in data charges than necessary to read our content. Performance was considered throughout the build, using ideas of a performance budget, techniques such as responsive images, not using a library unless we needed it, and allowing for the HTTP/2 serving of smaller resources.
 
 ##### Accessible
+{:.no_toc}
+
 It's not just best practice, but a legal requirement to make sure that the site is accessible to read and use. We would test each pattern's accessibility as part of building it.
 
 #### Maintain the value of the pattern library
+{:.no_toc}
+
 One of the aims of a pattern library is to be the canonical source of truth for the design and front end implementation of all the design patterns across a site. This is great at launch, but it's common for the value of a pattern library to drop dramatically over time if it's not easy to update, or is difficult to do so in a way that retains the philosophy of the design system.
 
-Even if they're reasonably easy to update, they often become susceptible to 'pattern rot' over time. Pattern rot is what can easily happen when it requires a developer to make the change to the pattern library, and apply it to the website codebase as two separate actions. Perhaps there's an urgent change to be made, and the developer feels that although the pattern library _should_ be updated first and then ported to the site, it's most important to get the change onto the site, and so the site is updated, and perhaps the developer doesn't quite get round to updating the pattern library later afterall. It's easily done: everyone's busy... The problem is that once the site and the pattern library have diverged, the value of having a pattern library is substantially reduced: it is no longer the canonical source of truth, so you can no  longer have complete confidence that what you see in the pattern library is what you get on the site, and so a lot of the work that went into building it becomes lost.    
+Even if they're reasonably easy to update, they often become susceptible to 'pattern rot' over time. Pattern rot is what can easily happen when patterns can be updated by making the change to the pattern library, and then copying and pasting the changes to the production website. Perhaps there's an urgent change to be made, and the developer feels that although the pattern library _should_ be updated first and then ported to the site, it's most important to get the change onto the site, and so the site is updated, and perhaps the developer doesn't quite get round to updating the pattern library later afterall. It's easily done: everyone's busy... The problem is that once the site and the pattern library have diverged, the value of having a pattern library is substantially reduced. Because it is no longer the canonical source of truth, so you can no  longer have complete confidence that what you see in the pattern library is what you get on the site, and so a lot of the work that went into building the pattern library becomes lost.    
 
 So to retain the value of the pattern library, it must:
 
@@ -59,9 +72,12 @@ So to retain the value of the pattern library, it must:
  This post focuses on how we built the pattern library in a way that makes the design system and the pattern library codebase maintainable for the foreseeable future.     
 
 #### Aims
+{:.no_toc}
+
 Before we started writing code, we documented our lower-level aims, based on the principles we'd already decided upon. These were:
 
 ##### Priority of concerns (in decreasing priority order):
+{:.no_toc}
 
 1. Access
 1. Maintainability
@@ -70,10 +86,14 @@ Before we started writing code, we documented our lower-level aims, based on the
 1. Visual appeal
 
 ##### Assumptions
+{:.no_toc}
+
 
 Maintainability doesn't negatively impact performance.
 
 ##### Techniques
+{:.no_toc}
+
 
 - Progressive enhancement.
 - `min-width` media queries
@@ -82,7 +102,7 @@ Maintainability doesn't negatively impact performance.
 
 
 ### Identifying and naming the patterns
-Before we could build any patterns, we needed to identify and name them: until we knew what we were builwithout a common vocabulary, things would fall apart very quickly. So to embark on building a brand new look for an online only journal, we took a large slice of irony pie and started by printing off wireframes of all the patterns.
+Before we could build any patterns, we needed to identify what things we were building, and decide how to talk about them: without a common vocabulary, things could fall apart very quickly. So to embark on building a brand new look for an online only journal, we took a large slice of irony pie and started by printing off wireframes of all the patterns.
 
 Having cut out each pattern, we grouped similar ones together on the floor which enabled us to determine which were essentially duplicates, to identify those we could treat as variants of the same underlying pattern, and to confirm which were actually distinct patterns.
 
@@ -94,6 +114,7 @@ We thought the whole process would take a couple of hours, but it took most of a
 With two front end developers liaising closely with the product team (the designer and the product owner), and facilitated by our tireless scrum master, we decided on 2 week scrum sprints, managing the scrum board in Trello.
 
 ### Tickets
+
 The principle of progressive enhancement affected the tickets we created: each pattern had a **first pass** ticket for building its markup and css. We used a checklist to manage the work for each ticket:
 
 - semantic html is built
@@ -113,7 +134,8 @@ For patterns that had variants, the one ticket described building all the varian
 Individual tickets had additional, pattern-specific checklist items as necessary.
 
 ### Board
- The [Trello](https://trello.com/) board was initially created with the columns:
+
+The [Trello](https://trello.com/) board was initially created with the columns:
 
 - backlog (All tickets start here)
 - sprint items (Committed to in the current sprint)
@@ -124,6 +146,8 @@ Individual tickets had additional, pattern-specific checklist items as necessary
 
 
 #### Refinement
+{:.no_toc}
+
 We discovered in the first retrospective that the product team were not feeling sufficiently involved in the review process for a pattern, resulting in patterns sometimes being classed as done when they weren't. This was quickly addressed in two ways:
 
 1. the addition of two more columns to separate out the product review from the technical review. The board collumns were then:
@@ -159,11 +183,14 @@ Each pattern comprises:
 - Exactly one `.yaml` file to define the data structure. This is helpful when integrating the patterns into the site, and will be expanded on in a separate post.
 
 ### Basic build pipeline
+
 Although PatternLab can compile scss, we elected to only use the mustache rendering part of PatternLab, as we wanted to keep control of all production code generation. We started off with a minimal build pipeline, originally in Grunt, but quickly switching to Gulp, knowing that we could add to it when we needed to. Initially it was only for linting and compiling scss, and moving asset files where they needed to be for the PatterLab server to display them correctly. 
 
 ### SCSS
 
 #### Style
+{:.no_toc}
+
 We agreed a few simple rules with the aim of keeping the CSS maintainable in the longer term:
 
 - one scss file per pattern
@@ -177,6 +204,7 @@ We agreed a few simple rules with the aim of keeping the CSS maintainable in the
 We implemented style linting with stylelint.
 
 #### Architecture
+{:.no_toc}
 
 - We used [Nicholas Gallagher's `normalise` stylesheet](http://nicolasgallagher.com/about-normalize-css/) as an scss partial, with some overrides we felt we needed defined in a separate  `normalise-overrides` partial.
 - Meaningful values for the design system: colours, font-sizes, quantities for spacing and element sizing, media query breakpoints, and transition parameters etc. are defined in the `variables` partial.
@@ -215,6 +243,8 @@ Compilation of the mustache templates with their json data files is handled by P
 A basic pattern with no variants has exactly one mustache template and one corresponding `json` data file.
 
 #### Pattern variants
+{:.no_toc}
+
 For a more complex pattern that has variants, an example of each variant can be produced by supplying a separate `json` file for each. For example the teaser pattern has  13 variants (an extreme case, most variant patterns have fewer than a handful). It only has one `mustache` file, but 13 associated `json` files:
 
 ```
@@ -279,11 +309,15 @@ This applies the pattern's JavaScript behaviour to each instance of the pattern 
 Notice we're additionally passing in the window and document objects to the component's constructor. This dependency injection enables easier testing.
 
 #### Future improvements
+{:.no_toc}
+
 It'd be great to improve the loader so that only the components on a particular page are loaded, and then initialisation can occur after these loads have completed.
 
 Because we have a 1:1 relationship between JavaScript component and pattern, we should be able to support HTTP/2 delivery of individual JavaScript assets, only providing what is required to the client (once we've upgraded our CDN).
 
 ### JavaScript testing
+{:.no_toc}
+
 We test in the browser using the tripod of the [mocha](https://mochajs.org/) test framework, the [chai](http://chaijs.com/) assertion library, and with [sinon](http://sinonjs.org/) for providing spies, mocks and stubs. At the moment we're using phantomjs as the local test environment, but now that's not under active maintenance we're looking to switch to using puppeteer with headless Chrome.
 
 For each pattern under test there are two files: the spec file and the fixture file. The spec file is the file that contains the tests. The fixture file is an HTML file that contains the HTML of the pattern under test. This is obtained by finding the pattern's compiled HTML file as generated by PatternLab, and manually copying out the relavent code.  We've found that keeping the test fixtures up to date can be difficult because it takes a developer to remember to do this every time the pattern's source or source-generating JavaScript is updated.
