@@ -5,7 +5,7 @@ desc: "Open source software for open access publishing."
 ---
 
 
-Describes building a pattern library implementing a design system for an open access science journal. The approach taken makes both the design system and the pattern library codebase highly flexible and maintainable.
+Describes building a pattern library implementing a design system for an open access science journal. The approach taken makes both the design system and the pattern library codebase highly flexible and maintainable. Part 1 of probably 2.
 
 ## Contents
 {:.no_toc}
@@ -23,7 +23,7 @@ Note that the code examples have been simplified for clarity.
 ## Deciding on an approach
 
 ### Design systems and Atomic Design
-During the design phase I had many constructive conversations with the designer, including prototyping some ideas to help decide on an overall approach to various things. He decided we needed a design system in order to retain both flexibility and design coherence for not only what we were building now, but what we might want to build in the future.
+During the design phase I had many constructive conversations with the designer, including prototyping some ideas to help decide on an overall approach to various things. He decided we needed a design system in order to retain both flexibility and design coherence for not only for the initial build, but what we might want to build in the future.
 
 Building a design system requires a modular, hierarchical approach, and this approach is well supported by using a pattern library. Brad Frost's [Atomic Design](http://bradfrost.com/blog/post/atomic-web-design/) principles are a natural fit with the designer's concept for the design system, and so we chose atomic design as the mental model for our new site design.
 
@@ -37,22 +37,22 @@ Before starting work, we agreed a set of principles that would guide our approac
 #### Don't lock out the readers
 {:.no_toc}
 
-##### Progressively enhanced
+##### Progressively enhance
 {:.no_toc}
 
 A reader could be on any platform anywhere in the world. It's vital that the content (mainly results of scientific research), and core functionality be available to everyone, regardless of platform, so we couldn't mandate a high technological baseline in order to read the journal. For this reason, and to be a good web citizen generally, we would use a [progessive enhancement](https://alistapart.com/article/understandingprogressiveenhancement) approach to ensure that JavaScript is not required to use the site: you get an enhanced experience if it's available, but content and core functionality does not require it.
 
-##### Responsive
+##### Make it responsive
 {:.no_toc}
 
 It should be a given these days, but it's worth mentioning anyway that the website should be [responsive](https://www.smashingmagazine.com/2011/01/guidelines-for-responsive-web-design/) so it will display appropriately, whatever the size of the users' screens.
 
-##### Performant
+##### Make it performant
 {:.no_toc}
 
-No one likes waiting for a web page to load, and if it takes too long, users will bail. If a user is on a narrow bandwidth or a high latency connection then any performance problems are exacerbated. Data costs vary across the world, and we don't want it to cost more in data charges than necessary to read our content. Performance was considered throughout the build, using ideas of a performance budget, techniques such as responsive images, not using a library unless we needed it, and allowing for the HTTP/2 serving of smaller resources.
+No one likes waiting for a web page to load, and if it takes too long, users will bail. If a user is on a narrow bandwidth or a high latency connection then any performance problems are exacerbated. Data costs vary across the world, and we don't want it to cost more in data charges than necessary to read our content. Performance was considered throughout the build, using ideas of a performance budget, techniques such as responsive images, allowing for the HTTP/2 serving of smaller resources, and not using a library unless we needed it.
 
-##### Accessible
+##### Make it accessible
 {:.no_toc}
 
 It's vital that our site content is accessible to all to read and use.
@@ -60,7 +60,7 @@ It's vital that our site content is accessible to all to read and use.
 #### Maintain the value of the pattern library
 {:.no_toc}
 
-One of the aims of a pattern library is to be the canonical source of truth for the design and front end implementation of the design patterns. This is great at launch, but it's common for the value of a pattern library to drop dramatically over time if it's not easy to update, or it's difficult to do so in a way that maintains the value of the underlying design system.
+One of the aims of a pattern library is to be the canonical source of truth for the design and front end implementation of the design patterns. This is the case at launch, but it's common for the value of a pattern library to drop dramatically over time if it's not easy to update, or it's difficult to do so in a way that maintains the value of the underlying design system.
 
 After launch, pattern libraries are often susceptible to 'pattern rot', when for whatever reason the patterns used on the live website are updated, but the pattern library is not. This usually occurs when there is some kind of copy/paste step necessary in order to apply an update from a pattern library pattern to its version on the live site. This step only has to be short-circuited once by the update being applied only to the live site, for the pattern library and the live site to diverge. Once this happens, the pattern library is no longer the canonical source of truth, so you can no longer have complete confidence that what you see in the pattern library is what you get on the site. Much of the work that went into building the pattern library becomes lost.
 
@@ -68,9 +68,9 @@ In summary, for a pattern library to retain its value, it must:
 
  1. be built in such a way as to reflect the intent of the design system  
  1. be easy to maintain
- 1. be easy to integrate (avoid 'pattern rot')
+ 1. be as easy as possible to integrate into the website it's defining the patterns for (avoid 'pattern rot')
  
- Integration is the hardest problem to solve, and has been the holy grail for pattern libraries for years. We managed to crack this, but you'll have to wait for the companion post to find out how.
+ Integration is the hardest problem to solve, and has been the holy grail for pattern libraries for years. We managed to crack this, but you'll have to wait for the companion post to find out how!
  
 #### Aims
 {:.no_toc}
@@ -103,11 +103,11 @@ Maintainability doesn't negatively impact performance.
 
 
 ### Identifying and naming the patterns
-Before we could build any patterns, we needed to identify what things we were building, and decide how to talk about them: without a common vocabulary, things could fall apart very quickly. So to embark on building a brand new look for an online only journal, we took a large slice of irony pie and started by printing off wireframes of all the patterns.
+Before we could build any patterns, we needed to identify what things we were building, and decide how to talk about them: without a common vocabulary, things could fall apart very quickly. So, embarking on building a brand new look for an online only journal, we took a large slice of irony pie and started by printing off wireframes of all the patterns.
 
 Having cut out each pattern, we took up most of the floor of the room we were in, laying them out to take stock of what we had. We grouped similar patterns together, enabling us to distinguish those that were essentially duplicates from those we could treat as variants of the same underlying pattern, and to confirm which were actually distinct patterns.
 
-Once distinct patterns were identified, we opened up the room to anyone who wanted to help us agree names for each pattern. Having fresh minds at this point helped us get better names.
+Once distinct patterns were identified, we opened up the room to anyone who wanted to help us agree names for each pattern. Fresh minds at this point helped us get better names.
 
 We thought the whole process would take a couple of hours, but it took most of a day to complete. The benefits were well worth the time: it was a great way to expose many hidden assumptions, identify gaps in thinking, and discover inconsistencies that had crept in during the design process. If we hadn’t done the exercise, all those problems would still exist, but they’d only manifest later when they’d be more expensive in time and effort to fix.
 
@@ -173,9 +173,7 @@ Pull requests on GitHub from feature branches into the master branch.
 
 ## Build
 
-In total so far (we launched in June 2017, but a website's never 'done'), we've built just under 100 patterns.
-
-Each pattern comprises:
+Currently the pattern library defines just under 100 patterns. Each pattern comprises:
 
 - Exactly one `.scss` file
 - Exactly one `.mustache` file
@@ -471,25 +469,28 @@ Note the empty `alt` attribute: as the image is within a `<figure>`, the `<figca
 To handle the large amount of image variants that can be required when implementing responsive images, we used the [International Image Interoperability Framework](http://iiif.io/) (IIIF) [to serve most of our images](https://elifesciences.org/labs/d6044799/dynamically-serving-scientific-images-using-iiif).
 
 ### Extended build pipeline
-When we came to build the patterns' behaviours, we added JavaScript linting, transpiling and test running to the Gulp pipeline. When we started this project at the beginning of 2016, ES2015 was the stable transpilation target, so that's what ours is set to. Over 18 months, the JavaScript/Browser landscape has changed considerably, and we'll be reviewing this farily soon.
+When we came to build the patterns' behaviours, we needed to add JavaScript linting, transpiling and test running to the build pipeline. It quickly became apparent that [Gulp](https://gulpjs.com/) was much more flexible than Grunt for this, so we switched from a wild boar to a huge caffeinated beverage (and the caffeine would come in handy).
 
-We're using Babel to transpile, a mixture of jshint and jscs for linting (there'a a pending upgrade to eslint).
+We author in ES6, and use Babel to transpile down to ES2015, because when we started this project at the beginning of 2016, ES2015 was the generally recommended target. Nearly 2 years later, the JavaScript/Browser landscape has changed considerably, and we'll be reviewing this farily soon.
+
+Linting is performed with a mixture of [jshint](http://jshint.com/) and [jscs](http://jscs.info/), although there is a pending upgrade to [eslint](https://eslint.org/).
 
 ### Pattern behaviour with JavaScript
-Each pattern's JavaScript behaviour (if any), has that behaviour defined in a discrete component with the same name as the pattern. This JavaScript component is referenced from the root element of the pattern's mustache template by the attribute `data-behaviour="ComponentName"`.
+A pattern's JavaScript behaviour is defined in a discrete component with the same name as the pattern. This JavaScript component is referenced from the root element of the pattern's mustache template by the attribute `data-behaviour="ComponentName"`.
 
-For example, the content header pattern has its associated behaviour defined in the `ContentHeader` class, which is found in the `ContentHeader.js` file. The `content-header.mustache` template starts with:
+For example, the content-header pattern has its associated behaviour defined in the `ContentHeader` class, which is found in the `ContentHeader.js` file. The `content-header.mustache` template starts with:
 
 ```<div... data-behaviour="ContentHeader">...```
 
 This causes this HTML element to be passed as an argument to the class constructor in `ContentHeader.js` when the page's JavaScript loads and runs:
 
 ```
-// Load all components
+// 1. Load the components
 const components = {}:
 Components.ContentHeader = require('./components/ContentHeader');
 // ... load more components ...
 
+// 4. This bit does the actual initialising
 function initialiseComponent($component) {
   const handler = $component.getAttribute('data-behaviour');
     if (!!Components[handler] && typeof Components[handler] === 'function') {
@@ -499,7 +500,11 @@ function initialiseComponent($component) {
   $component.dataset.behaviourInitialised = true;
 }
 
+// 2. Find all patterns in the document that have declared  a 
+//    JavaScript component
 const components = document.querySelectorAll('[data-behaviour]');
+
+// 3. Initialise each component with the HTMLElement that declared it
 if (components) {
   [].forEach.call(components, (el) => initialiseComponent(el));  
 }
@@ -507,7 +512,7 @@ if (components) {
 
 This applies the pattern's JavaScript behaviour to each instance of the pattern on the page.
 
-Notice we're additionally passing in the window and document objects to the component's constructor. This dependency injection enables easier testing.
+Notice we're additionally passing in the `window` and `document` objects to the component's constructor. This dependency injection enables us to mock these objects, enabling us to write better tests.
 
 #### Future improvements
 {:.no_toc}
@@ -520,27 +525,81 @@ Because we have a 1:1 relationship between JavaScript component and pattern, we 
 
 We test in the browser using the tripod of the [mocha](https://mochajs.org/) test framework, the [chai](http://chaijs.com/) assertion library, and with [sinon](http://sinonjs.org/) for providing spies, mocks and stubs. At the moment we're using phantomjs as the test environment, but now that's not under active maintenance we're looking to switch to using puppeteer with headless Chrome.
 
-For each pattern under test there are two files: the spec file and the fixture file. The spec file is the file that contains the tests. The fixture file is an HTML file that contains the HTML of the pattern under test. This is obtained by finding the pattern's compiled HTML file as generated by PatternLab, and manually copying out the relavent code.  We've found that keeping the test fixtures up to date can be difficult because it takes a developer to remember to do this every time the pattern's source or source-generating JavaScript is updated.
+For each pattern under test there are two files: the spec file and the fixture file. The spec file contains the tests. The fixture file contains the HTML of the pattern whose component is under test. This is obtained by finding the pattern's compiled HTML generated by PatternLab, and manually copying across the relevant code.
+
+By way of example, this is the guts of the fixture file for the `ToggleableCaption` component:
+ 
+ ```html
+ 
+ <!-- Results of test run end up here -->
+ <div id="mocha"></div>
+ 
+ <!-- This is the test fixture --> 
+ <div data-behaviour="ToggleableCaption" data-selector=".caption-text__body">
+ 
+   <div class="caption-text__body">
+ 
+     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In interdum, metus quis sodales pharetra, odio justo
+       blandit mi, at porta augue felis sit amet metus. Aliquam porta, justo dapibus vulputate aliquet, arcu quam tempor
+       metus, et aliquam nisi nunc in est. Cras vitae leo pretium, tincidunt nisi ac, varius neque. Donec nec posuere
+       sem. Integer felis risus, sagittis et pulvinar pretium, rutrum sit amet odio. Proin erat purus, sodales a gravida
+       vitae, malesuada non sem. Integer semper enim ante. Donec odio ipsum, ultrices vel quam at, condimentum eleifend
+       augue. Pellentesque id ipsum nec dui dictum commodo. Donec quis sagittis ex, sit amet tempus nisi. Nulla eu tortor
+       vitae felis porta faucibus in eu leo. Donec ultrices vehicula enim, quis maximus nulla rhoncus sed. Vestibulum
+       elementum ligula quis mi aliquet, tincidunt finibus mi hendrerit.</p>
+ 
+   </div>
+ 
+ </div>
+ 
+ <!-- Load the test frameworks -->
+ <script src="../node_modules/mocha/mocha.js"></script>
+ <script src="../node_modules/chai/chai.js"></script>
+ <script src="../node_modules/sinon/pkg/sinon.js"></script>
+ 
+ <!-- Initialise the test suite -->
+ <script>mocha.setup('bdd')</script>
+ 
+ <!-- Load the spec file -->
+ <script src="build/toggleablecaption.spec.js"></script>
+ 
+ <!-- Run the tests -->
+ <script>
+   mocha.run();
+ </script>
+
+```
+ 
+ We've found that keeping the test fixtures up to date can be difficult, because it takes a developer to remember to re-copy and paste the HTML from the compiled mustache pattern template every time the pattern's source or source-generating JavaScript is updated.
 
 The tests are run under Gulp using `gulp-mocha-phantomjs`. 
+
+## Where's _is it_ tho'?
+
+The website using the patterns is [https://elifesciences.org/](https://elifesciences.org/).
+
+All the code for the pattern library is available on GitHub under the MIT licence at [https://github.com/elifesciences/pattern-library](https://github.com/elifesciences/pattern-library).
+
+The PatternLab pattern library generated by this code is at [https://github.com/elifesciences/pattern-library](https://github.com/elifesciences/pattern-library)
 
 ## Lessons learned
 
 - Take the time to agree your principles and build aims up front. Set the expectations that derive from these in the wider team, so no one's surprised when you start challenging demands for moreLibrareez, etc.
+
 - When following atomic design principles, don't worry too much about strict molecule/organism heirarchy: get it as good as you can, but a slighly fuzzy, useable system is better than a system that's strictly correct but horrible to use.
+
 - Implementing a design system requires excellent communication between designers and front end devs. A designer who understands front end code, and developers with a design eye, both really help with this: the more shared context, the better the mutual understanding.
+
 - Regularly review your process: if we hadn't had the retrospective that uncovered the frustrations of the product team over sign off, work quality could have been reduced and relationships strained.
+
 - Don't be afraid to iterate on the patterns, and set the expectation early that this is a good thing. More complex patterns, and/or patterns that have multiple variants may need a few shots at them to make them work. Remember that if you're implementing a design system, the patterns don't only have to work individually, but they have to be easily maintainable along with the design system. It's worth spending more time to iterate to get it right at this stage, because fundamental changes later are bound to be more expecsive in time, effort and complexity.
+
 - Concentrating the design system typography in one place made thinking about it, talking about it, and subsequently, maintaining it, a lot easier than it might otherwise have been.
+
 - TDD FTW! The few times we didn't use test-driven development for the JavaScript, it was always painful to fill in the gaps afterwards.
 
-<!-- What's next? There're a few things I'd really like to get sorted out:
-
-- Modify the JavaScript loading so that only the required code is loaded per page (or as close as we can get to this)
-- fine tune asset delivery over HTTP/2 (this will require a change to our CDN first)          
--->
-
+- Grunt is good to get up and running quickly for simple build pipelines, but if you're trying to do more complicated things, it's probably easier to use Gulp: Gulp build files are written in JavaScript, which is more versatile and less confusing than trying to wrangle a Grunt config JavaScript object for a complex build pipeline.
 
 ## In conclusion
 
-This is one of the most rewarding projects I've worked on: a truly honourable combination of open source code enabling open access science publishing. There's loads more I could say, but this post is already long enough. Be sure to check back soon for the second post in the series: about how we solved pattern rot through using the patterns we built in PatternLab directly in the website.
+This is one of the most rewarding projects I've worked on: a truly honourable combination of open source code enabling open access science publishing. There's loads more I could say, but this post is already long enough. Be sure to check back soon for the companion post about how we solved pattern rot through enabling use of the patterns we built in PatternLab directly in the website.
