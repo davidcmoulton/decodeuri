@@ -2,6 +2,7 @@
 layout: post
 title: "Building a pattern library for scholarly publishing"
 desc: "Open source software for open access publishing."
+date: "2017-11-17 10:00:00"
 ---
 
 
