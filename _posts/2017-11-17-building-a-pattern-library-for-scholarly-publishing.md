@@ -67,7 +67,7 @@ molecules
 
 - DISCO MODE! i.e. constant automatic changing of the viewport to random widths to see what breaks (music not included)
 
-It also has template- and page-level composition. This enables you to build up a sample page, illustrating how the patterns might work together. From a technical perspective this is very useful for checking things such as a baseline grid, that can't be properly set on a pattern in isolation without observing it in a higher level context. It's also great for stakeholders engagement too! It can sometimes be difficult to communicate the value of a modular build approach to people who are used to thinking of the web in terms of pages not patterns. Being able to mock up a page with real patterns in can help with this.
+It also has template- and page-level composition. This enables you to build up sample pages, illustrating how the patterns might work together. From a technical perspective this is very useful for checking things such as a baseline grid, that can't be properly set on a pattern in isolation without observing it in a higher level context. It's also great for stakeholders' engagement too! It can sometimes be difficult to communicate the value of a modular build approach to people who are used to thinking of the web in terms of pages not patterns. Being able to mock up a page with real patterns in can help with this.
 
 ### Principles
 Before starting work, we agreed a set of principles that would guide our approach to decision-making along the way.
@@ -394,7 +394,7 @@ Typographical styles are defined for all aspects of the design, like this tiny f
 </table>
 
 and all these definitions are captured in mixins within `typographical-hierarchy`. For example, for the two labels, we abstract out the common aspects:
-```sass
+```scss
  // All typographical style mixin names include 'typeg' for clarity
  // when viewed out of context. 
  @mixin _label-typeg() {
@@ -408,7 +408,7 @@ and all these definitions are captured in mixins within `typographical-hierarchy
 
 and then create a mixin for each label type, based on it:
 
-```sass
+```scss
  @mixin label-content-typeg() {
    @include _label-typeg();
    color: $color-text-secondary;
