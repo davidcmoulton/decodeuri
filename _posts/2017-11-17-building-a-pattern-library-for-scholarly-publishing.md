@@ -169,7 +169,7 @@ The [Trello](https://trello.com/) board was initially created with the columns:
 
 We discovered in the first retrospective that the product team were not feeling sufficiently involved in the review process for a pattern, resulting in patterns sometimes being classed as done when they weren't. This was quickly addressed in two ways:
 
-1. the addition of two more columns to separate out the product review from the technical review. The board collumns were then:
+1. the addition of two more columns to separate out the product review from the technical review. The board columns were then:
 
     - backlog (To be done)
     - sprint items (Committed to in the current sprint)
