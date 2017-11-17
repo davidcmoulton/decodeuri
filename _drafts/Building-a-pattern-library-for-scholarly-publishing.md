@@ -413,7 +413,7 @@ Typographical styles are defined for all aspects of the design, like this tiny f
 </table>
 
 and all these definitions are captured in mixins within `typographical-hierarchy`. For example, for the two labels, we abstract out the common aspects:
-```scss
+```sass
  // All typographical style mixin names include 'typeg' for clarity
  // when viewed out of context. 
  @mixin _label-typeg() {
@@ -427,16 +427,16 @@ and all these definitions are captured in mixins within `typographical-hierarchy
 
 and then create a mixin for each label type, based on it:
 
-```scss
-@mixin label-content-typeg() {
-  @include _label-typeg();
-  color: $color-text-secondary;
-}
+```sass
+ @mixin label-content-typeg() {
+   @include _label-typeg();
+   color: $color-text-secondary;
+ }
 
-@mixin label-subject-typeg() {
-  @include _label-typeg();
-  color: $color-primary;
-}
+ @mixin label-subject-typeg() {
+   @include _label-typeg();
+   color: $color-primary;
+ }
 ```
 
 In the design system specification, all the patterns have their typography defined in terms of these typographical style names. Often a particular style name is used for more than one pattern. With this approach we can easily apply the correct typographical style to the pattern's CSS via the mixins, and at the same time, keep the design system highly maintainable. If a particular named style is updated, then a simple update to one `typeg` mixin will permeate to all parts of the system that use it.
@@ -479,27 +479,27 @@ Sometimes when coming to build a pattern with variants, we discovered that one o
 The scholarly content contains a lot of figures, mainly in the form of images. We use [responsive images techniques](https://responsiveimages.org/) (`<picture>`, `srcset` and sometimes `sizes`), to stop the browser downloading more image data than it needs. For example, the compiled HTML from the `captioned-asset` pattern's mustache template looks like this:
 
 ``` html
-<figure class="captioned-asset">
+ <figure class="captioned-asset">
+ 
+   <picture class="captioned-asset__picture">
+     <source 
+       srcset="
+         /path-to-1076-px-wide-image 1076w, 
+         /path-to-538-px-wide-image 538w" 
+       type="image/jpeg" />
+     <img 
+       src="/path-to-538-px-wide-image" 
+       alt=""
+       class="captioned-asset__image" />
+   </picture>         
 
-  <picture class="captioned-asset__picture">
-    <source 
-      srcset="
-        /path-to-1076-px-wide-image 1076w, 
-        /path-to-538-px-wide-image 538w" 
-      type="image/jpeg" />
-    <img 
-      src="/path-to-538-px-wide-image" 
-      alt=""
-      class="captioned-asset__image" />
-  </picture>         
+   <figcaption class="captioned-asset__caption">          
+     <h6 class="caption-text__heading">Title of the figure caption</h6>
+     <div class="caption-text__body">The figure caption</div>
+     <span class="doi doi--asset">The DOI link</span>
+   </figcaption>
 
-  <figcaption class="captioned-asset__caption">          
-    <h6 class="caption-text__heading">Title of the figure caption</h6>
-      <div class="caption-text__body">The figure caption</div>
-      <span class="doi doi--asset">The DOI link</span>
-  </figcaption>
-
-</figure>
+ </figure>
   ```
 Note the empty `alt` attribute: as the image is within a `<figure>`, the `<figcaption>` provides the description.
 
@@ -521,30 +521,29 @@ For example, the content-header pattern has its associated behaviour defined in 
 
 This causes this HTML element to be passed as an argument to the class constructor in `ContentHeader.js` when the page's JavaScript loads and runs:
 
-```JavaScript
-// 1. Load the components
-const Components = {};
-Components.ContentHeader = require('./components/ContentHeader');
-// ... load more components ...
+```javascript
+ // 1. Load the components
+ const Components = {};
+ Components.ContentHeader = require('./components/ContentHeader');
+ // ... load more components ...
 
-// 4. This bit does the actual initialising
-function initialiseComponent($component) {
-  const handler = $component.getAttribute('data-behaviour');
-    if (!!Components[handler] && typeof Components[handler] === 'function') {
-      new Components[handler]($component, window, window.document);
-  }
-  
-  $component.dataset.behaviourInitialised = true;
-}
-
-// 2. Find all patterns in the document that have declared  a 
-//    JavaScript component
-const components = document.querySelectorAll('[data-behaviour]');
-
-// 3. Initialise each component with the HTMLElement that declared it
-if (components) {
-  [].forEach.call(components, (el) => initialiseComponent(el));  
-}
+ // 4. This bit does the actual initialising
+ function initialiseComponent($component) {
+   const handler = $component.getAttribute('data-behaviour');
+   if (!!Components[handler] && typeof Components[handler] === 'function') {
+     new Components[handler]($component, window, window.document);
+   }
+      
+   $component.dataset.behaviourInitialised = true;
+ }
+    
+ // 2. Find all patterns in the document that have declared  a js component
+ const components = document.querySelectorAll('[data-behaviour]');
+    
+ // 3. Initialise each component with the HTMLElement that declared it
+ if (components) {
+   [].forEach.call(components, (el) => initialiseComponent(el));  
+ }
 ```
 
 This applies the pattern's JavaScript behaviour to each instance of the pattern on the page.
@@ -567,7 +566,6 @@ For each pattern under test there are two files: the spec file and the fixture f
 By way of example, this is the guts of the fixture file for the `ToggleableCaption` component:
  
  ```html
- 
  <!-- Results of test run end up here -->
  <div id="mocha"></div>
  
