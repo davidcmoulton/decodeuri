@@ -16,4 +16,6 @@ kramdown:
   input: GFM
 permalink: pretty
 #highlighter: pygments
-highlighter: coderay
+#highlighter: coderay
+highlighter: rouge
+
