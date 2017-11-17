@@ -24,7 +24,7 @@ Note that the code examples have been simplified for clarity.
 ## Deciding on an approach
 
 ### Design systems and Atomic Design
-During the design phase I had many constructive conversations with the designer, including prototyping some ideas to help decide on an overall approach to various things. He decided we needed a design system in order to retain both flexibility and design coherence only for the initial build, but for what we might want to create in the future.
+During the design phase I had many constructive conversations with the designer, including prototyping some ideas to help decide on an overall approach to various things. He decided we needed a design system in order to retain both flexibility and design coherence not only for the initial build, but for what we might want to create in the future.
 
 Building a design system requires a modular, hierarchical approach, and this approach is well supported by using a pattern library. Brad Frost's [Atomic Design](http://bradfrost.com/blog/post/atomic-web-design/) principles are a natural fit with the designer's concept for the design system, and so we chose atomic design as the mental model for our new site design.
 
