@@ -74,25 +74,14 @@ Before starting work, we agreed a set of principles that would guide our approac
 #### Don't lock out the readers
 {:.no_toc}
 
-##### Progressively enhance
-{:.no_toc}
 
-A reader could be on any platform anywhere in the world. It's vital that the content (mainly results of scientific research), and core functionality be available to everyone, regardless of platform, so we couldn't mandate a high technological baseline in order to read the journal. For this reason, and to be a good web citizen generally, we would use a [progessive enhancement](https://alistapart.com/article/understandingprogressiveenhancement) approach to ensure that JavaScript is not required to use the site: you get an enhanced experience if it's available, but content and core functionality does not require it.
+1. **Progressively enhance:** a reader could be on any platform anywhere in the world. It's vital that the content (mainly results of scientific research), and core functionality be available to everyone, regardless of platform, so we couldn't mandate a high technological baseline in order to read the journal. For this reason, and to be a good web citizen generally, we would use a [progessive enhancement](https://alistapart.com/article/understandingprogressiveenhancement) approach to ensure that JavaScript is not required to use the site: you get an enhanced experience if it's available, but content and core functionality does not require it.
 
-##### Make it responsive
-{:.no_toc}
+1. **Make it responsive**: it should be a given these days, but it's worth mentioning anyway that the website should be [responsive](https://www.smashingmagazine.com/2011/01/guidelines-for-responsive-web-design/) so it will display appropriately, whatever the size of the users' screens.
 
-It should be a given these days, but it's worth mentioning anyway that the website should be [responsive](https://www.smashingmagazine.com/2011/01/guidelines-for-responsive-web-design/) so it will display appropriately, whatever the size of the users' screens.
+1. **Make it performant**: no one likes waiting for a web page to load, and if it takes too long, users will bail. If a user is on a narrow bandwidth or a high latency connection then any performance problems are exacerbated. Data costs vary across the world, and we don't want it to cost more in data charges than necessary to read our content. Performance was considered throughout the build, using ideas of a performance budget, techniques such as responsive images, allowing for the HTTP/2 serving of smaller resources, and not using a library unless we needed it.
 
-##### Make it performant
-{:.no_toc}
-
-No one likes waiting for a web page to load, and if it takes too long, users will bail. If a user is on a narrow bandwidth or a high latency connection then any performance problems are exacerbated. Data costs vary across the world, and we don't want it to cost more in data charges than necessary to read our content. Performance was considered throughout the build, using ideas of a performance budget, techniques such as responsive images, allowing for the HTTP/2 serving of smaller resources, and not using a library unless we needed it.
-
-##### Make it accessible
-{:.no_toc}
-
-It's vital that our site content is accessible to all to read and use.
+1. **Make it accessible**: it's vital that our site content is accessible to all to read and use.
 
 #### Maintain the value of the pattern library
 {:.no_toc}
@@ -112,10 +101,7 @@ In summary, for a pattern library to retain its value, it must:
 #### Aims
 {:.no_toc}
 
-Before we started writing code, we documented our lower-level aims, based on the principles we'd already decided upon. These were:
-
-##### Priority of concerns (in decreasing priority order):
-{:.no_toc}
+Before we started writing code, we documented our lower-level aims, based on the principles we'd already decided upon. Our priority of concerns, in decreasing order, were:
 
 1. Access
 1. Maintainability
@@ -123,15 +109,9 @@ Before we started writing code, we documented our lower-level aims, based on the
 1. Taking advantage of browser capabilities
 1. Visual appeal
 
-##### Assumptions
-{:.no_toc}
+with the assumption that maintainability won't negatively impact performance.
 
-
-Maintainability doesn't negatively impact performance.
-
-##### Techniques
-{:.no_toc}
-
+We also documented some of the techniques we'd use:
 
 - Progressive enhancement.
 - `min-width` media queries
