@@ -23,13 +23,50 @@ Note that the code examples have been simplified for clarity.
 ## Deciding on an approach
 
 ### Design systems and Atomic Design
-During the design phase I had many constructive conversations with the designer, including prototyping some ideas to help decide on an overall approach to various things. He decided we needed a design system in order to retain both flexibility and design coherence for not only for the initial build, but what we might want to build in the future.
+During the design phase I had many constructive conversations with the designer, including prototyping some ideas to help decide on an overall approach to various things. He decided we needed a design system in order to retain both flexibility and design coherence only for the initial build, but for what we might want to create in the future.
 
 Building a design system requires a modular, hierarchical approach, and this approach is well supported by using a pattern library. Brad Frost's [Atomic Design](http://bradfrost.com/blog/post/atomic-web-design/) principles are a natural fit with the designer's concept for the design system, and so we chose atomic design as the mental model for our new site design.
 
 Atomic Design considers reusable, composable design patterns in a hierarchy described in terms of `atoms`, `molecules`, and `organisms`. An `atom` is the smallest unit of the design system, for example a button or a link. A more complex `molecule` pattern may be composed by assembling a collection of `atom`-level patterns, for example a teaser within a listing. An `organism` is more complex again, and may comprise a number of included `atoms` and `molecules`. We discovered that it's not really worth trying to impose a strict hierarchy to distinguish `molecules` from `organisms`. Whilst trying generally to maintain the distinction that `organisms` are a higher order pattern than `molecules`, it's okay for `molecules` to contain other `molecules` as well as `atoms`, and for `organisms` to contain `organisms` as well as lower-order patterns. With only 3 hierarchy levels to play with, we found we got most benefit from a pragmatic interpretation of the atomic design hierarchy.
 
-Having decided on atomic design, we chose [PatternLab](http://patternlab.io/) as the natural tool to deliver it. PatternLab uses [mustache templating](http://mustache.github.io/) and provides a web interface to display the patterns next to the markup that defines them, along with any optional annotations you may wish to supply. Since we started the project, other pattern library candidates have appeared that may have served just as well, for example [Fractal](https://fractal.build/), but they weren't available then; PatternLab was the the best available tool at the time, and it has served us well.
+
+### PatternLab
+Having decided on atomic design, we chose Brad Frost's [PatternLab](http://patternlab.io/) as the natural tool to deliver it. PatternLab uses [mustache templating](http://mustache.github.io/) and provides a web interface to display the patterns next to the markup that defines them, along with any optional annotations you may wish to supply. Since we started the project, other pattern library candidates have appeared that may have served just as well, for example [Fractal](https://fractal.build/), but they weren't available then; PatternLab was the the best available tool at the time, and it has served us well.
+
+Useful abilities of PatternLab include:
+
+- can view the template code and the compiled HTML next to its pattern
+
+- can annotate a pattern with style-guide level information
+
+- pattern search
+
+- option to view any PatternLab page without the PatternLab UI in case it's getting in the way
+
+- can break down atomic design levels to group patterns of a particular type within a level. This can make it easier to track down a pattern on the file system; for example, the `molecules` patterns might be grouped like this:
+
+```
+molecules
+├── general
+│   ├── ...
+│   └── ... 
+├── navigation
+│   ├── ...
+│   └── ... 
+└── teasers
+    ├── ...
+    └── ...  
+```
+  
+- the display can be restricted to show any level of pattern grouping, and only that level: e.g. just the `atoms` or just the navigation `molecules` (see above diagram). This is useful when trying to see how different patterns within a group behave at breakpoints, to iron out inconsistencies.
+
+- set the effective viewport width in px or ems to see how patterns behave in that situation
+
+- more general one-click buttons to set a general viewport width
+
+- DISCO MODE! i.e. constant automatic changing of the viewport to random widths to see what breaks (music not included)
+
+It also has template- and page-level composition. This enables you to build up a sample page, illustrating how the patterns might work together. From a technical perspective this is very useful for checking things such as a baseline grid, that can't be properly set on a pattern in isolation without observing it in a higher level context. It's also great for stakeholders engagement too! It can sometimes be difficult to communicate the value of a modular build approach to people who are used to thinking of the web in terms of pages not patterns. Being able to mock up a page with real patterns in can help with this.
 
 ### Principles
 Before starting work, we agreed a set of principles that would guide our approach to decision-making along the way.
@@ -484,9 +521,9 @@ For example, the content-header pattern has its associated behaviour defined in 
 
 This causes this HTML element to be passed as an argument to the class constructor in `ContentHeader.js` when the page's JavaScript loads and runs:
 
-```
+```JavaScript
 // 1. Load the components
-const components = {}:
+const Components = {};
 Components.ContentHeader = require('./components/ContentHeader');
 // ... load more components ...
 
