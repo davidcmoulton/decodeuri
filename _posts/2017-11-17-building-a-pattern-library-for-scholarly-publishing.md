@@ -16,7 +16,7 @@ Describes building a pattern library implementing a design system for an open ac
 
 
 ## Introduction
-I recently had the privilege of being involved in the ground up rebuild of an [online science journal](https://elifesciences.org). The whole stack was rebuilt from scratch using a microservices approach. The journal is building a reputation for innovation in science publishing, and it was a great opportunity to get involved in a green field project to build best web practise into this arena.  In this post I'll be focusing on how we built the front end. A companion post is planned about how we integrated the pattern library into the site.
+I recently had the privilege of being involved in the ground-up rebuild of an [online science journal](https://elifesciences.org). The whole stack was rebuilt from scratch using a microservices approach. The journal is building a reputation for innovation in science publishing, and it was a great opportunity to get involved in a green field project to build best web practice into this arena.  In this post I'll be focusing on how we built the front end. A companion post is planned about how we integrated the pattern library into the site.
 
 Note that the code examples have been simplified for clarity.  
 
@@ -24,27 +24,27 @@ Note that the code examples have been simplified for clarity.
 ## Deciding on an approach
 
 ### Design systems and Atomic Design
-During the design phase I had many constructive conversations with the designer, including prototyping some ideas to help decide on an overall approach to various things. He decided we needed a design system in order to retain both flexibility and design coherence not only for the initial build, but for what we might want to create in the future.
+During the design phase, I had many constructive conversations with the designer, including prototyping some ideas to help decide on an overall approach to various things. He decided we needed a design system in order to retain both flexibility and design coherence not only for the initial build, but for what we might want to create in the future.
 
-Building a design system requires a modular, hierarchical approach, and this approach is well supported by using a pattern library. Brad Frost's [Atomic Design](http://bradfrost.com/blog/post/atomic-web-design/) principles are a natural fit with the designer's concept for the design system, and so we chose atomic design as the mental model for our new site design.
+Building a design system requires a modular, hierarchical approach, and this approach is well supported by using a pattern library. Brad Frost's [Atomic Design](http://bradfrost.com/blog/post/atomic-web-design/) principles are a natural fit with the designer's concept for the design system, and so we chose Atomic Design as the mental model for our new site design.
 
-Atomic Design considers reusable, composable design patterns in a hierarchy described in terms of `atoms`, `molecules`, and `organisms`. An `atom` is the smallest unit of the design system, for example a button or a link. A more complex `molecule` pattern may be composed by assembling a collection of `atom`-level patterns, for example a teaser within a listing. An `organism` is more complex again, and may comprise a number of included `atoms` and `molecules`. We discovered that it's not really worth trying to impose a strict hierarchy to distinguish `molecules` from `organisms`. Whilst trying generally to maintain the distinction that `organisms` are a higher order pattern than `molecules`, it's okay for `molecules` to contain other `molecules` as well as `atoms`, and for `organisms` to contain `organisms` as well as lower-order patterns. With only 3 hierarchy levels to play with, we found we got most benefit from a pragmatic interpretation of the atomic design hierarchy.
+Atomic Design considers reusable, composable design patterns in a hierarchy described in terms of `atoms`, `molecules`, and `organisms`. An `atom` is the smallest unit of the design system, for example a button or a link. A more complex `molecule` pattern may be composed by assembling a collection of `atom`-level patterns, for example a teaser within a listing. An `organism` is more complex again and may comprise a number of included `atoms` and `molecules`. We discovered that it's not really worth trying to impose a strict hierarchy to distinguish `molecules` from `organisms`. Whilst trying generally to maintain the distinction that `organisms` are a higher-order pattern than `molecules`, it's okay for `molecules` to contain other `molecules` as well as `atoms`, and for `organisms` to contain `organisms` as well as lower-order patterns. With only 3 hierarchy levels to play with, we found we got most benefit from a pragmatic interpretation of the Atomic Design hierarchy.
 
 
 ### PatternLab
-Having decided on atomic design, we chose Brad Frost's [PatternLab](http://patternlab.io/) as the natural tool to deliver it. PatternLab uses [mustache templating](http://mustache.github.io/) and provides a web interface to display the patterns next to the markup that defines them, along with any optional annotations you may wish to supply. Since we started the project, other pattern library candidates have appeared that may have served just as well, for example [Fractal](https://fractal.build/), but they weren't available then; PatternLab was the the best available tool at the time, and it has served us well.
+Having decided on Atomic Design, we chose Brad Frost's [PatternLab](http://patternlab.io/) as the natural tool to deliver it. PatternLab uses [mustache templating](http://mustache.github.io/) and provides a web interface to display the patterns next to the markup that defines them, along with any optional annotations you may wish to supply. Since we started the project, other pattern library candidates have appeared that may have served just as well, for example [Fractal](https://fractal.build/), but they weren't available then; PatternLab was the the best available tool at the time, and it has served us well.
 
 Useful abilities of PatternLab include:
 
-- can view the template code and the compiled HTML next to its pattern
+- Can view the template code and the compiled HTML next to its pattern.
 
-- can annotate a pattern with style-guide level information
+- Can annotate a pattern with style-guide level information.
 
-- pattern search
+- Pattern search.
 
-- option to view any PatternLab page without the PatternLab UI in case it's getting in the way
+- Option to view any PatternLab page without the PatternLab UI in case it's getting in the way.
 
-- can break down atomic design levels to group patterns of a particular type within a level. This can make it easier to track down a pattern on the file system; for example, the `molecules` patterns might be grouped like this:
+- Can break down Atomic Design levels to group patterns of a particular type within a level. This can make it easier to track down a pattern on the file system; for example, the `molecules` patterns might be grouped like this:
 
 ```
 molecules
@@ -59,15 +59,15 @@ molecules
     └── ...  
 ```
   
-- the display can be restricted to show any level of pattern grouping, and only that level: e.g. just the `atoms` or just the navigation `molecules` (see above diagram). This is useful when trying to see how different patterns within a group behave at breakpoints, to iron out inconsistencies.
+- The display can be restricted to show any level of pattern grouping, and only that level e.g. just the `atoms` or just the navigation `molecules` (see above diagram). This is useful when trying to see how different patterns within a group behave at breakpoints, to iron out inconsistencies.
 
-- set the effective viewport width in px or ems to see how patterns behave in that situation
+- Set the effective viewport width in px or ems to see how patterns behave in that situation.
 
-- more general one-click buttons to set a general viewport width
+- More general one-click buttons to set a general viewport width.
 
-- DISCO MODE! i.e. constant automatic changing of the viewport to random widths to see what breaks (music not included)
+- DISCO MODE! i.e. constant automatic changing of the viewport to random widths to see what breaks (music not included).
 
-It also has template- and page-level composition. This enables you to build up sample pages, illustrating how the patterns might work together. From a technical perspective this is very useful for checking things such as a baseline grid, that can't be properly set on a pattern in isolation without observing it in a higher level context. It's also great for stakeholders' engagement too! It can sometimes be difficult to communicate the value of a modular build approach to people who are used to thinking of the web in terms of pages not patterns. Being able to mock up a page with real patterns in can help with this.
+It also has template- and page-level composition. This enables you to build up sample pages, illustrating how the patterns might work together. From a technical perspective this is very useful for checking things such as a baseline grid, that can't be properly set on a pattern in isolation without observing it in a higher-level context. It's also great for stakeholders' engagement too! It can sometimes be difficult to communicate the value of a modular build approach to people who are used to thinking of the web in terms of pages not patterns. Being able to mock up a page with real patterns in can help with this.
 
 ### Principles
 Before starting work, we agreed a set of principles that would guide our approach to decision-making along the way.
@@ -76,11 +76,11 @@ Before starting work, we agreed a set of principles that would guide our approac
 {:.no_toc}
 
 
-1. **Progressively enhance:** a reader could be on any platform anywhere in the world. It's vital that the content (mainly results of scientific research), and core functionality be available to everyone, regardless of platform, so we couldn't mandate a high technological baseline in order to read the journal. For this reason, and to be a good web citizen generally, we would use a [progessive enhancement](https://alistapart.com/article/understandingprogressiveenhancement) approach to ensure that JavaScript is not required to use the site: you get an enhanced experience if it's available, but content and core functionality does not require it.
+1. **Progressively enhance**: a reader could be on any platform anywhere in the world. It's vital that the content (mainly results of scientific research) and core functionality be available to everyone, regardless of platform, so we couldn't mandate a high technological baseline in order to read the journal. For this reason, and to be a good web citizen generally, we would use a [progessive enhancement](https://alistapart.com/article/understandingprogressiveenhancement) approach to ensure that JavaScript is not required to use the site: you get an enhanced experience if it's available, but content and core functionality does not require it.
 
-1. **Make it responsive**: it should be a given these days, but it's worth mentioning anyway that the website should be [responsive](https://www.smashingmagazine.com/2011/01/guidelines-for-responsive-web-design/) so it will display appropriately, whatever the size of the users' screens.
+1. **Make it responsive**: it should be a given these days, but it's worth mentioning anyway that the website should be [responsive](https://www.smashingmagazine.com/2011/01/guidelines-for-responsive-web-design/), so it will display appropriately, whatever the size of the users' screens.
 
-1. **Make it performant**: no one likes waiting for a web page to load, and if it takes too long, users will bail. If a user is on a narrow bandwidth or a high latency connection then any performance problems are exacerbated. Data costs vary across the world, and we don't want it to cost more in data charges than necessary to read our content. Performance was considered throughout the build, using ideas of a performance budget, techniques such as responsive images, allowing for the HTTP/2 serving of smaller resources, and not using a library unless we needed it.
+1. **Make it performant**: no one likes waiting for a web page to load and, if it takes too long, users will bail. If a user is on a narrow bandwidth or a high-latency connection, then any performance problems are exacerbated. Data costs vary across the world, and we don't want it to cost more in data charges than necessary to read our content. Performance was considered throughout the build, using ideas of a performance budget, techniques such as responsive images, allowing for the HTTP/2 serving of smaller resources, and not using a library unless we needed it.
 
 1. **Make it accessible**: it's vital that our site content is accessible to all to read and use.
 
@@ -89,64 +89,64 @@ Before starting work, we agreed a set of principles that would guide our approac
 
 One of the aims of a pattern library is to be the canonical source of truth for the design and front end implementation of the design patterns. This is the case at launch, but it's common for the value of a pattern library to drop dramatically over time if it's not easy to update, or it's difficult to do so in a way that maintains the value of the underlying design system.
 
-After launch, pattern libraries are often susceptible to 'pattern rot', when for whatever reason the patterns used on the live website are updated, but the pattern library is not. This usually occurs when there is some kind of copy/paste step necessary in order to apply an update from a pattern library pattern to its version on the live site. This step only has to be short-circuited once by the update being applied only to the live site, for the pattern library and the live site to diverge. Once this happens, the pattern library is no longer the canonical source of truth, so you can no longer have complete confidence that what you see in the pattern library is what you get on the site. Much of the work that went into building the pattern library becomes lost.
+After launch, pattern libraries are often susceptible to 'pattern rot', when for whatever reason the patterns used on the live website are updated, but the pattern library is not. This usually occurs when there is some kind of copy/paste step necessary in order to apply an update from a pattern library pattern to its version on the live site. This step needs to be short-circuited only once by the update being applied only to the live site, for the pattern library and the live site to diverge. Once this happens, the pattern library is no longer the canonical source of truth, so you can no longer have complete confidence that what you see in the pattern library is what you get on the site. Much of the work that went into building the pattern library becomes lost.
 
 In summary, for a pattern library to retain its value, it must:
 
- 1. be built in such a way as to reflect the intent of the design system  
- 1. be easy to maintain
- 1. be as easy as possible to integrate into the website it's defining the patterns for (avoid 'pattern rot')
+ 1. Be built in such a way as to reflect the intent of the design system.  
+ 1. Be easy to maintain.
+ 1. Be as easy as possible to integrate into the website it's defining the patterns for (avoid 'pattern rot').
  
- Integration is the hardest problem to solve, and has been the holy grail for pattern libraries for years. We managed to crack this, but you'll have to wait for the companion post to find out how!
+ Integration is the hardest problem to solve and has been the holy grail for pattern libraries for years. We managed to crack this, but you'll have to wait for the companion post to find out how!
  
 #### Aims
 {:.no_toc}
 
 Before we started writing code, we documented our lower-level aims, based on the principles we'd already decided upon. Our priority of concerns, in decreasing order, were:
 
-1. Access
-1. Maintainability
-1. Performance
-1. Taking advantage of browser capabilities
-1. Visual appeal
+1. Access.
+1. Maintainability.
+1. Performance.
+1. Taking advantage of browser capabilities.
+1. Visual appeal.
 
-with the assumption that maintainability won't negatively impact performance.
+With the assumption that maintainability won't negatively impact performance.
 
 We also documented some of the techniques we'd use:
 
 - Progressive enhancement.
-- `min-width` media queries
+- `min-width` media queries.
 - Small-screen first responsive images.
 - Only add libraries as needed.
 
 
 ### Identifying and naming the patterns
-Before we could build any patterns, we needed to identify what things we were building, and decide how to talk about them: without a common vocabulary, things could fall apart very quickly. So, embarking on building a brand new look for an online only journal, we took a large slice of irony pie and started by printing off wireframes of all the patterns.
+Before we could build any patterns, we needed to identify what things we were building and decide how to talk about them: without a common vocabulary, things could fall apart very quickly. So, embarking on building a brand new look for an online-only journal, we took a large slice of irony pie and started by printing off wireframes of all the patterns.
 
 Having cut out each pattern, we took up most of the floor of the room we were in, laying them out to take stock of what we had. We grouped similar patterns together, enabling us to distinguish those that were essentially duplicates from those we could treat as variants of the same underlying pattern, and to confirm which were actually distinct patterns.
 
 Once distinct patterns were identified, we opened up the room to anyone who wanted to help us agree names for each pattern. Fresh minds at this point helped us get better names.
 
-We thought the whole process would take a couple of hours, but it took most of a day to complete. The benefits were well worth the time: it was a great way to expose many hidden assumptions, identify gaps in thinking, and discover inconsistencies that had crept in during the design process. If we hadn’t done the exercise, all those problems would still exist, but they’d only manifest later when they’d be more expensive in time and effort to fix.
+We thought the whole process would take a couple of hours, but it took most of a day to complete. The benefits were well worth the time: it was a great way to expose many hidden assumptions, identify gaps in thinking, and discover inconsistencies that had crept in during the design process. If we hadn’t done the exercise, all those problems would still exist, but they’d have only manifested later when they’d be more expensive in time and effort to fix.
 
 ## Deciding on a process
 With two front end developers liaising closely with the product team (the designer and the product owner), and facilitated by our tireless scrum master, we decided on 2 week scrum sprints, managing the scrum board in Trello.
 
 ### Tickets
 
-The fact we were using progressive enhancement affected the tickets we created: each pattern had a **first pass** ticket for building its markup and CSS. We used a checklist to manage the work for each ticket:
+The fact that we were using progressive enhancement affected the tickets we created: each pattern had a **first pass** ticket for building its markup and CSS. We used a checklist to manage the work for each ticket:
 
-- semantic html is built
+- Semantic html is built.
 - CSS is applied correctly
-- core content and functionality is available without JavaScript or CSS
-- accessibility testing performed
-- browser testing performed
+- Core content and functionality is available without JavaScript or CSS.
+- Accessibility testing performed.
+- Browser testing performed.
 
 If a pattern had some behaviour, then a **second pass** ticket was created for building its JavaScript. Each second pass ticket had the checklist:
 
-- JavaScript tests written
-- JavaScript behaviour written
-- JavaScript tests pass
+- JavaScript tests written.
+- JavaScript behaviour written.
+- JavaScript tests pass.
 
 For patterns that had variants, the one ticket described building all the variants. They would all have to be considered at the same time in order to build them in a way that works for all of the variants anyway, so it didn't make sense to split them up.
 
@@ -156,12 +156,12 @@ Individual tickets had additional, pattern-specific checklist items as necessary
 
 The [Trello](https://trello.com/) board was initially created with the columns:
 
-- backlog (All tickets start here)
-- sprint items (Committed to in the current sprint)
-- in progress (In active development)
-- in testing (In browser/accessibility testing)
-- in review (Being reviewed)
-- done (Finished)
+- Backlog (all tickets start here).
+- Aprint items (committed to in the current sprint).
+- In progress (in active development).
+- In testing (in browser/accessibility testing).
+- In review (being reviewed).
+- Done (finished).
 
 
 #### Refinement
@@ -171,18 +171,18 @@ We discovered in the first retrospective that the product team were not feeling 
 
 1. the addition of two more columns to separate out the product review from the technical review. The board columns were then:
 
-    - backlog (To be done)
-    - sprint items (Committed to in the current sprint)
-    - in progress (In active development)
-    - **for feeback (Ready for product review)**
-    - **feedback provided (Reviewed by product)**
-    - in testing (In browser/accessibility testing)
-    - in review (In **technical** review)
-    - done (Finished)
+    - Backlog (to be done).
+    - Sprint items (committed to in the current sprint).
+    - In progress (in active development).
+    - **For feeback (ready for product review)**.
+    - **Feedback provided (reviewed by product)**.
+    - In testing (in browser/accessibility testing).
+    - In review (in **technical** review).
+    - Done (finished).
     
-2. the addition of an approval checklist, with each product team member having a dedicated box to check to indicate sign off.
+2. The addition of an approval checklist, with each product team member having a dedicated box to check to indicate sign off.
 
-    With the revised board, once the pattern is built and ready for product approval it's moved from 'in progress' to 'for feedback'. The product team then either specify any changes to be made, or check their name off the checklist if happy with the pattern as it is. They then move it to 'feedback provided'. Tickets may go round the 'for feedback' -> 'feedback provided' -> 'for feedback'... loop a number of times until the pattern's right. Once a ticket arrives in 'feedback provided' with all product team approval boxes checked, the pattern's ready for testing.
+    With the revised board, once the pattern is built and ready for product approval it's moved from 'in progress' to 'for feedback'. The product team members then either specify any changes to be made, or check their name off the checklist if happy with the pattern as it is. They then move it to 'feedback provided'. Tickets may go round the 'for feedback' -> 'feedback provided' -> 'for feedback'... loop a number of times until the pattern's right. Once a ticket arrives in 'feedback provided' with all product team members' approval boxes checked, the pattern's ready for testing.
 
 ### Code management
 
@@ -193,11 +193,11 @@ Pull requests on GitHub from feature branches into the master branch.
 
 Currently the pattern library defines just under 100 patterns. Each pattern comprises:
 
-- Exactly one `.scss` file
-- Exactly one `.mustache` file
-- One or more `.json` files, one per pattern variant
-- Zero or one `.js` files, built in the second pass
-- Exactly one `.yaml` file to define the data structure. This is helpful when integrating the patterns into the site, and will be expanded on in the forthcoming companion post.
+- Exactly one `.scss` file.
+- Exactly one `.mustache` file.
+- One or more `.json` files, one per pattern variant.
+- Zero or one `.js` files, built in the second pass.
+- Exactly one `.yaml` file to define the data structure. This is helpful when integrating the patterns into the site and will be expanded on in the forthcoming companion post.
 
 Each pattern's accessibility was tested using Khan Academy's [tota11y](https://khan.github.io/tota11y/) for accessibility testing in the browser.
 
@@ -214,25 +214,25 @@ Although PatternLab can compile SCSS, we elected not to do this as we wanted to 
 
 We agreed a few simple rules with the aim of keeping the SCSS maintainable in the longer term:
 
-- one SCSS file per pattern
+- One SCSS file per pattern.
 - Use [Harry Robert's flavour of BEM](https://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/) (Block, Element, Modifier) for CSS class naming. This works well with a pattern-based approach, as the root of each pattern can define a BEM block. Coupled with the decision to have one SCSS file per pattern, this namespacing kept the separation of the styles for individial patterns nice and clean.
-- keep selector specificity as low as possible, and with a maximum selector nesting of 3 (not including pseudo elements). As selectors only need to start from the root of a pattern (or deeper), this seemed a pragmatic maximum. We agreed that we'd increase it if we really, _really_ needed to, but up to now we haven't had to.
-- don't use `&` as partial completion for a class name, as it makes searching/refactoring across a code base more error-prone.
-- [avoid `@extends`](https://www.sitepoint.com/avoid-sass-extend/), use mixins instead for greater flexibility.
-- only mixins that are completely pattern-specific may live in a pattern's SCSS file, other mixins must live in higher-level files (see Architecture).
-- list property names alphabetically
+- Keep selector specificity as low as possible, and with a maximum selector nesting of 3 (not including pseudo elements). As selectors need only to start from the root of a pattern (or deeper), this seemed a pragmatic maximum. We agreed that we'd increase it if we really, _really_ needed to, but up to now we haven't had to.
+- Don't use `&` as partial completion for a class name, as it makes searching/refactoring across a code base more error-prone.
+- [Avoid `@extends`](https://www.sitepoint.com/avoid-sass-extend/); use mixins instead for greater flexibility.
+- Only mixins that are completely pattern-specific may live in a pattern's SCSS file, other mixins must live in higher-level files (see Architecture).
+- List property names alphabetically.
 
 We implemented style linting with [stylelint](https://stylelint.io/).
 
 #### Architecture
 {:.no_toc}
 
-- Meaningful values for the design system: colours, font-sizes, quantities for spacing and element sizing, media query breakpoints, and transition parameters etc. are defined in the `variables` partial.
-- For a sensible reset starting point we included [Nicholas Gallagher's `normalise` CSS stylesheet](http://nicolasgallagher.com/about-normalize-css/) as an SCSS partial
-- our own base styles, and any necessary overrides to `normalise` are defined in the `normalise-overrides` partial.
+- Meaningful values for the design system: colours, font sizes, quantities for spacing and element sizing, media query breakpoints and transition parameters etc are defined in the `variables` partial.
+- For a sensible reset starting point we included [Nicholas Gallagher's `normalise` CSS stylesheet](http://nicolasgallagher.com/about-normalize-css/) as an SCSS partial.
+- Our own base styles, and any necessary overrides to `normalise` are defined in the `normalise-overrides` partial.
 - The typography component of the design system is defined in the `typographic-hierarchy` partial: this contains numerous mixins responsible for enforcing a consistent typographic style across the site.
-- the `grid` partial contains all SCSS and mixins required for both the horizontal and baseline grid systems
-- the `mixins` partial contains all other mixins
+- The `grid` partial contains all SCSS and mixins required for both the horizontal and baseline grid systems.
+- The `mixins` partial contains all other mixins.
 
 These are imported along with the pattern-specific SCSS files to create the main build CSS file like this:
 
@@ -298,7 +298,7 @@ The designer documented the typographical part of the design system as a hierarc
 </tbody>
 </table>
 
-The media query column specifies what (if any) change occurs when a the viewport is wider than the relevant site breakpoint. Note that the breakpoints themselves are not specified here, to keep things loosely coupled. 
+The media query column specifies what (if any) change occurs when the viewport is wider than the relevant site breakpoint. Note that the breakpoints themselves are not specified here, to keep things loosely coupled. 
 
 These base styles are then used as part of the specification for the next level up:
 
@@ -393,7 +393,7 @@ Typographical styles are defined for all aspects of the design, like this tiny f
 </tbody>
 </table>
 
-and all these definitions are captured in mixins within `typographical-hierarchy`. For example, for the two labels, we abstract out the common aspects:
+All these definitions are captured in mixins within `typographical-hierarchy`. For example, for the two labels, we abstract out the common aspects:
 ```scss
  // All typographical style mixin names include 'typeg' for clarity
  // when viewed out of context. 
@@ -411,28 +411,28 @@ and then create a mixin for each label type, based on it:
 ```scss
  @mixin label-content-typeg() {
    @include _label-typeg();
-   color: $color-text-secondary;
+   color: $color-text-secondary; // grey
  }
 
  @mixin label-subject-typeg() {
    @include _label-typeg();
-   color: $color-primary;
+   color: $color-primary; // blue
  }
 ```
 
-In the design system specification, all the patterns have their typography defined in terms of these typographical style names. Often a particular style name is used for more than one pattern. With this approach we can easily apply the correct typographical style to the pattern's CSS via the mixins, and at the same time, keep the design system highly maintainable. If a particular named style is updated, then a simple update to one `typeg` mixin will permeate to all parts of the system that use it.
+In the design system specification, all the patterns have their typography defined in terms of these typographical style names. Often a particular style name is used for more than one pattern. With this approach, we can easily apply the correct typographical style to the pattern's CSS via the mixins and, at the same time, keep the design system highly maintainable. If a particular named style is updated, then a simple update to one `typeg` mixin will permeate to all parts of the system that use it.
 
-(N.B. These examples are taken from an early draft of the spec, and the final values used on the site may have changed, although the system defining them hasn't, indicating that it's working well!)
+(N.B. These examples are taken from an early draft of the spec and the final values used on the site may have changed, although the system defining them hasn't, indicating that it's working well!)
 
 ### Markup
-Compilation of the mustache templates with their json data files is handled by PatternLab, producing a user-friendly, to-some-extent-configurable [web view of the patterns](https://ui-patterns.elifesciences.org/).
+Compilation of the mustache templates with their json data files is handled by PatternLab, producing a user-friendly, to-some-extent-configurable, [web view of the patterns](https://ui-patterns.elifesciences.org/).
 
 A basic pattern with no variants has exactly one mustache template and one corresponding `json` data file.
 
 #### Pattern variants
 {:.no_toc}
 
-For a more complex pattern that has variants, an example of each variant can be produced by supplying a separate `json` file for each. For example the teaser pattern has  13 variants (an extreme case, most variant patterns have fewer than a handful). It only has one `mustache` file, but 13 associated `json` files:
+For a more complex pattern that has variants, an example of each variant can be produced by supplying a separate `json` file for each. For example the teaser pattern has  13 variants (an extreme case, most variant patterns have fewer than a handful). It has only one `mustache` file, but 13 associated `json` files:
 
 ```
 .
@@ -454,10 +454,10 @@ For a more complex pattern that has variants, an example of each variant can be 
 
 PatternLab uses the `~` in a filename to identify a variant. The numerals in the filenames control the ordering of the [presentation of the variants](https://ui-patterns.elifesciences.org/?p=viewall-molecules-teasers).
 
-Sometimes when coming to build a pattern with variants, we discovered that one or more variants required a significant change to the markup of the main pattern, which suggested a new pattern rather than just a variant. In this case we'd create the ticket(s) for it, and put them into the backlog, moving the appropriate spec from the old to the new ticket.
+Sometimes when coming to build a pattern with variants, we discovered that one or more variants required a significant change to the markup of the main pattern, which suggested a new pattern rather than just a variant. In this case we'd create the ticket(s) for it and put them into the backlog, moving the appropriate spec from the old to the new ticket.
 
 ### Images
-The scholarly content contains a lot of figures, mainly in the form of images. We use [responsive images techniques](https://responsiveimages.org/) (`<picture>`, `srcset` and sometimes `sizes`), to stop the browser downloading more image data than it needs. For example, the compiled HTML from the `captioned-asset` pattern's mustache template looks like this:
+The scholarly content contains a lot of figures, mainly in the form of images. We use [responsive images techniques](https://responsiveimages.org/) (`<picture>`, `srcset` and sometimes `sizes`) to stop the browser downloading more image data than it needs. For example, the compiled HTML from the `captioned-asset` pattern's mustache template looks like this:
 
 ``` html
  <figure class="captioned-asset">
@@ -487,9 +487,9 @@ Note the empty `alt` attribute: as the image is within a `<figure>`, the `<figca
 To handle the large amount of image variants that can be required when implementing responsive images, we used the [International Image Interoperability Framework](http://iiif.io/) (IIIF) [to serve most of our images](https://elifesciences.org/labs/d6044799/dynamically-serving-scientific-images-using-iiif).
 
 ### Extended build pipeline
-When we came to build the patterns' behaviours, we needed to add JavaScript linting, transpiling and test running to the build pipeline. It quickly became apparent that [Gulp](https://gulpjs.com/) was much more flexible than Grunt for this, so we switched from a wild boar to a huge caffeinated beverage (and the caffeine would come in handy).
+When we came to build the patterns' behaviours, we needed to add JavaScript linting, transpiling and test running to the build pipeline. It quickly became apparent that Gulp was much more flexible than Grunt for this, so we switched from a wild boar to a huge caffeinated beverage (and the caffeine would come in handy).
 
-We author in ES6, and use Babel to transpile down to ES2015, because when we started this project at the beginning of 2016, ES2015 was the generally recommended target. Nearly 2 years later, the JavaScript/Browser landscape has changed considerably, and we'll be reviewing this farily soon.
+We author in ES6, and use Babel to transpile down to ES2015, because when we started this project at the beginning of 2016, ES2015 was the generally recommended target. Nearly 2 years later, the JavaScript/Browser landscape has changed considerably, and we'll be reviewing this fairly soon.
 
 Linting is performed with a mixture of [jshint](http://jshint.com/) and [jscs](http://jscs.info/), although there is a pending upgrade to [eslint](https://eslint.org/).
 
@@ -540,7 +540,7 @@ Because we have a 1:1 relationship between JavaScript component and pattern, we 
 
 ### JavaScript testing
 
-We test in the browser using the tripod of the [mocha](https://mochajs.org/) test framework, the [chai](http://chaijs.com/) assertion library, and with [sinon](http://sinonjs.org/) for providing spies, mocks and stubs. At the moment we're using phantomjs as the test environment, but now that's not under active maintenance we're looking to switch to using puppeteer with headless Chrome.
+We test in the browser using the tripod of the [mocha](https://mochajs.org/) test framework, the [chai](http://chaijs.com/) assertion library, and with [sinon](http://sinonjs.org/) for providing spies, mocks and stubs. At the moment we're using phantomjs as the test environment, but now that's not currently under active maintenance we're looking to switch to using puppeteer with headless Chrome.
 
 For each pattern under test there are two files: the spec file and the fixture file. The spec file contains the tests. The fixture file contains the HTML of the pattern whose component is under test. This is obtained by finding the pattern's compiled HTML generated by PatternLab, and manually copying across the relevant code.
 
@@ -586,11 +586,11 @@ By way of example, this is the guts of the fixture file for the `ToggleableCapti
 
 ```
  
- We've found that keeping the test fixtures up to date can be difficult, because it takes a developer to remember to re-copy and paste the HTML from the compiled mustache pattern template every time the pattern's source or source-generating JavaScript is updated.
+ We've found that keeping the test fixtures up to date can be difficult, because it takes a developer to remember to re-copy and paste the HTML from the compiled mustache pattern template every time a pattern's source or source-generating JavaScript is updated.
 
 The tests are run under Gulp using `gulp-mocha-phantomjs`. 
 
-## Where's _is it_ tho'?
+## Where _is it_ tho'?
 
 The website using the patterns is [https://elifesciences.org/](https://elifesciences.org/).
 
@@ -602,13 +602,13 @@ The PatternLab pattern library generated by this code is at [https://ui-patterns
 
 - Take the time to agree your principles and build aims up front. Set the expectations that derive from these in the wider team, so no one's surprised when you start challenging demands for moarLibrareez, etc.
 
-- When following atomic design principles, don't worry too much about strict molecule/organism heirarchy: get it as good as you can, but a slighly fuzzy, useable system is better than a system that's strictly correct but horrible to use.
+- When following Atomic Design principles, don't worry too much about strict molecule/organism hierarchy: get it as good as you can, but a slighly fuzzy, useable system is better than a system that's strictly correct but horrible to use.
 
 - Implementing a design system requires excellent communication between designers and front end devs. A designer who understands front end code, and developers with a design eye, both really help with this: the more shared context, the better the mutual understanding.
 
 - Regularly review your process: if we hadn't had the retrospective that uncovered the frustrations of the product team over sign off, work quality could have been reduced and relationships strained.
 
-- Don't be afraid to iterate on the patterns, and set the expectation early that this is a good thing. More complex patterns, and/or patterns that have multiple variants may need a few shots at them to make them work. Remember that if you're implementing a design system, the patterns don't only have to work individually, but they have to be easily maintainable along with the design system. It's worth spending more time to iterate to get it right at this stage, because fundamental changes later are bound to be more expecsive in time, effort and complexity.
+- Don't be afraid to iterate on the patterns, and set the expectation early that this is a good thing. More complex patterns, and/or patterns that have multiple variants may need a few shots at them to make them work. Remember that if you're implementing a design system, the patterns don't only have to work individually, but they have to be easily maintainable along with the design system. It's worth spending more time to iterate to get it right at this stage, because fundamental changes later are bound to be more expensive in time, effort and complexity.
 
 - Concentrating the design system typography in one place made thinking about it, talking about it, and subsequently, maintaining it, a lot easier than it might otherwise have been.
 
