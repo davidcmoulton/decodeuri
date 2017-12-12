@@ -48,25 +48,43 @@
 
   function buildView(data) {
     const doc = win.document;
+    const $body = doc.querySelector('body');
+
+    const $h1 = doc.createElement('h1');
+    $h1.innerHTML = 'eLife podcast episode URIs';
+    $body.appendChild($h1);
+
+    const $p = doc.createElement('p');
+    $p.innerHTML = 'This page lists each eLife podcast, with a link to the page on the eLife site,';
+    $p.innerHTML += ' and a link to the episode audio file which the eLife page uses from a';
+    $p.innerHTML += ' naked scientists domain. It can be used to validate the links, and so to ';
+    $p.innerHTML += ' quickly identity any that are broken and so need updating.';
+    $body.appendChild($p);
+
     const $table = createTableSkeleton(doc);
     populateTable(data, $table, doc);
-    doc.querySelector('body').appendChild($table);
+    $body.appendChild($table);
   }
 
   function populateTable(data, $table, document) {
     data.forEach((item) => {
       const $tr = document.createElement('tr');
 
+      const episodeNumber = item.episodeNumber;
       const $numberCell = document.createElement('td');
-      $numberCell.innerHTML = item.episodeNumber;
+      const $aNumber = document.createElement('a');
+      $aNumber.setAttribute('href', `https://elifesciences.org/podcast/episode${episodeNumber}`);
+      $aNumber.setAttribute('target', 'external');
+      $aNumber.innerHTML = episodeNumber;
+      $numberCell.appendChild($aNumber);
       $tr.appendChild($numberCell);
 
       const $uri = item.sourceUri;
       const $uriCell = document.createElement('td');
-      const $a = document.createElement('a');
-      $a.setAttribute('href', $uri);
-      $a.innerHTML = $uri;
-      $uriCell.appendChild($a);
+      const $aUri = document.createElement('a');
+      $aUri.setAttribute('href', $uri);
+      $aUri.innerHTML = $uri;
+      $uriCell.appendChild($aUri);
       $tr.appendChild($uriCell);
 
       $table.appendChild($tr);
@@ -76,7 +94,7 @@
   function createTableSkeleton(document) {
     const $table = document.createElement('table');
     const $thead = document.createElement('thead');
-    const headings = ['Episode number', 'URI which eLife site is requesting from naked scientists'];
+    const headings = ['Episode number (linked to eLife page)', 'URI which eLife site is requesting from naked scientists\' site'];
     for(let i = 0; i < headings.length; i += 1) {
       const $heading = document.createElement('th');
       $heading.innerHTML = headings[i];
