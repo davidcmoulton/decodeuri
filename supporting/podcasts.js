@@ -2,7 +2,7 @@
   'use strict';
   const win = window;
   const perPage = 100;
-  const uri = `https://prod--gateway.elifesciences.org/podcast-episodes?per-page=${perPage}`;
+  const uri = `https://api.elifesciences.org/podcast-episodes?per-page=${perPage}`;
 
   function getData(uri, headOnly) {
     const method = headOnly ? 'HEAD' : 'GET';
