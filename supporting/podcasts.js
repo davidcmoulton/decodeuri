@@ -42,7 +42,6 @@
   }
 
   function report(data) {
-    console.log('data: ', data);
     buildView(data);
   }
 
