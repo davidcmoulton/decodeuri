@@ -6,7 +6,7 @@ date: "2018-2-13"
 ---
 
 # Preface
-This is an extremely raw, totally unproofed write up of my notes from SmashingConf London 2018. Ahead there are typos, incomplete sentences, fragmentary notes, repetitions, and possibly contradictions. Some of it might be even incomprehensible out of context, (but at least this way you don't have to try to read my handwriting). I'll tidy these up over the next few weeks, but most the important thing is to make them available soonest, so here you are.
+Immediately below are a few key points distilled from my raw notes. Following these is a writeup of my raw notes: they're an extremely raw, totally unproofed write up of my notes from SmashingConf London 2018. There will be typos, incomplete sentences, fragmentary notes, repetitions, and possibly contradictions. Some of it might be even incomprehensible out of context, (but at least this way you don't have to try to read my handwriting). I'll tidy these up over the next few weeks, but most the important thing is to make them available soonest, so here you are.
 
 We can do better.
 
@@ -14,6 +14,20 @@ And we will!
 
 Soon...   
 
+# Some key points
+- use Brotli compression
+- use HTTP/2
+- You can have impactful images with fewer bytes transferred by degrading the image quality but combining it with a background colour or gradient via `mix-blend-mode` or `filter()`
+- make sure you can remove A/B testing quickly if it causes performance problems
+- flatten the dependency tree with client hints
+- consider using `font-display` with `preload` client hint as a progressive enhancement to improve font loading UX (for this and alternatives see [https://www.zachleat.com/web/comprehensive-webfonts/](https://www.zachleat.com/web/comprehensive-webfonts/))
+- a little care how you construct and manipulate js arrays can take advantage of V8 optimisations
+- only load the js you need, and delay non-essential scripts
+- may improve jank by using `will-change`
+- use `requestAnimationFrame`
+- Chrome User Experience Report provides real user metrics at scale (for Chrome)
+- Case studies of business cases for demonstrating the impact of web performance optimisation on business metrics are at [WPOStats](https://wpostats.com)
+- CSS grid is awesome
 
 # Vitaly: New Front-End Adventures in Responsive Design
 
