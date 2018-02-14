@@ -69,7 +69,7 @@ Watch out for Edge < 16 implementation: can use `@supports (grid-gap: 0)` to scr
 
 Grid bugs and their amelioration: https://github.com/rachelandrew/gridbugs 
 
-[cssgridgarden.com](cssgridgarden.com) 
+[cssgridgarden.com](https://cssgridgarden.com) 
 
 ## Text
 - zlib preset quality settings: slow compression, smaller size; faster compression, larger size
@@ -109,11 +109,11 @@ Can use `unicode-range` in `@font-face`: good for internationalisation: only req
   
 Variable fonts (see `font-variation-settings`: can only be targeted with media query and JavaScript (?as opposed to what?). Designers can add custom variable axes, in addition to the preregistered ones): not so much use for latin charactersets, but in languages with large charactersets, e.g. Japanese, it's prohibitive to load the bold font weight as well as the regular one, so using variable fonts can help here. Poor browser support, but support is coming. Not many fonts support it yet, but type designers are on it now. `font-variation-settings` is low level (a la Houdini), and so can override other font settings, e.g. `font-weight`.
 Variable fonts are incompatible with parametric fonts.
-[axis-praxis.org](axis-praxis.org)    
+[axis-praxis.org](https://axis-praxis.org)    
 
 ## 3rd parties
 - generate request maps for what 
-- [requestmap.webperf.tools](requestmap.webperf.tools)
+- [requestmap.webperf.tools](https://requestmap.webperf.tools)
 - WebpageTest blackhole endpoint
 - could return an empty response from ServiceWorker if script doesn't return in a set amount of time 
 - sandbox property
@@ -158,7 +158,7 @@ Variable fonts are incompatible with parametric fonts.
 
 
 ## Links
-Slides at [www.smashed.by/lnd18](www.smashed.by/lnd18)
+Slides at [www.smashed.by/lnd18](https://www.smashed.by/lnd18)
 - responsivebreakpoints.com
 - letsenhance.io
 - https://www.zachleat.com/web/comprehensive-webfonts/
@@ -170,8 +170,8 @@ Slides at [www.smashed.by/lnd18](www.smashed.by/lnd18)
 - https://github.com/lyzadanger/pragmatist-service-worker
 - https://developers.google.com/web/tools/workbox/ ???
 
-[data-data.net](data-data.net)
-[airbnb.design](airbnb.design)
+[data-data.net](https://data-data.net)
+[airbnb.design](https://airbnb.design)
 
 ### Explore
 
@@ -180,7 +180,7 @@ Slides at [www.smashed.by/lnd18](www.smashed.by/lnd18)
 - Firefox grid inspector
 - `vmin` etc
 - `ch` unit: width of `0` character in current typeface - of particular use with monospace fonts
-- [cssgridgarden.com](cssgridgarden.com) 
+- [cssgridgarden.com](https://cssgridgarden.com) 
 - brotli & fallbacks
 - `font-display: optional;`
 <!-- - WE CAN USE INTERSECTIONOBSERVER WITH HYPOTHESIS! Also for lazy-loading our figures: this could -->
@@ -208,7 +208,6 @@ Deployment:
 
 ## Look more into
  - Book: Designing for performance: Laura Hogan  
- - jamstack.org
  - jamstack.org
  
  
@@ -678,9 +677,11 @@ Browsers prioritise loading of assets depending on whether they're likely to be 
 - Very low: CSS (non-applicable media type)
 
 dns-prefetch
+
 preconnect
 
 preload for _current_ navigation (has priority of the resource type being fetched) (very recent browser versions)
+
 prefetch for _next_ navigation (has the lowest possible priority) (not Safari)
 
 Consider a progressive enhancement (support not universal)
@@ -921,9 +922,13 @@ A high flex-shrink value will make it get smaller, faster, than those with a lar
 Shorthand:  `flex-flow: [direction] [wrapping]`  
 
 `flex: initial` - default - can shrink but they don't grow == `flex: 0 1 auto`
-`flex: auto` == `flex 1 1 auto
-`flex: none` == ``flex 0 0 auto`
+
+`flex: auto` == `flex 1 1 auto`
+
+`flex: none` == `flex 0 0 auto`
+
 `flex: 1` == `flex 1 1 0`
+
 `flex: 2` == `flex 2 1 0`
 
 Remember auto margins can be used to split items within a justified content block. An auto margin (everywhere, not just flexbox), use all available space it has access to, so putting it on one side forces it to the other side.
