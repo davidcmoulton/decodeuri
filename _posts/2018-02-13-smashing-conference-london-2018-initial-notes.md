@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "SmashingConf London 2018"
-desc: "An extremely raw, totally unproofed write up of my notes from SmashingConf London 2018. Total butchery of the English langauge. You have been warned."
+desc: "An extremely raw, totally unproofed write up of my notes from SmashingConf London 2018. Total butchery of the English language. You have been warned."
 date: "2018-2-13"
 ---
 
@@ -44,7 +44,7 @@ Otto.de: German retailer uses vertical slicing of responsibilities: e.g. the bre
 AirBnB: 'air/shots': search engine for style guide that works for both designers and developers. Now extended to use machine learning to recognise their UI patterns
 
 ## Sketch-related
-Sketch to React tool: build mockups in React & then import into 
+Sketch to React tool: build mock-ups in React & then import into 
 
 html-sketch-app    
 nodeToSketchLayers
@@ -53,7 +53,7 @@ SymbolMaster
 Supernova Studio
 
 
-- define component root sizes in rem, but internal component sizes in em. Ususal caution applies. [How might this blow up?]
+- define component root sizes in rem, but internal component sizes in em. Usual caution applies. [How might this blow up?]
 - plot font size against viewport width, and code the curve: for font-size see Mike Reithmueller. Could apply same principle to e.g. line-height
 
 ## Grid
@@ -83,7 +83,7 @@ Grid bugs and their amelioration: https://github.com/rachelandrew/gridbugs
 - contrast swap technique (but bad for saving image)
 - could have large, highly compressed image displayed at a small size: file size could be a lot smaller than an smaller image of higher quality (bad for memory)
 - could blur unimportant bits of an image to reduce file size
-- try modifying default scan level for progessive jpegs in order to 'ship fast and show soon'
+- try modifying default scan level for progressive jpegs in order to 'ship fast and show soon'
     - mights try mozjpeg or adapt jpeg, or tinyJpeg, or Guetzli
 - letsenhance.io upscales images with machine learning
 
@@ -92,7 +92,7 @@ Grid bugs and their amelioration: https://github.com/rachelandrew/gridbugs
 - can drop eot & opentype if don't care about IE9 & old Androids
 
 Fonts only downloaded when they're references in css (after construction of DOM and CSSOM)
-Flash of invisiible text with 3 s timeout in FF & Chrome before displaying fallback, but Safari has no timeout!
+Flash of invisible text with 3 s timeout in FF & Chrome before displaying fallback, but Safari has no timeout!
 Native browser API (web font loader)
 
 ["Comprehensive guide to font loading strategy"](https://www.zachleat.com/web/comprehensive-webfonts/)
@@ -107,14 +107,14 @@ Web fonts often drop out of the HTTP cache because they have a low priority: Fac
 
 Can use `unicode-range` in `@font-face`: good for internationalisation: only requests font if the page contains characters from that range. [Could this be automated?]
   
-Variable fonts (see `font-variation-settings`: can only be targeted with media query and JavaScript (?as opposed to what?). Designers can add custom variable axes, in addition to the preregistered ones): not so much use for latin charactersets, but in languages with large charactersets, e.g. Japanese, it's prohibitive to load the bold font weight as well as the regular one, so using variable fonts can help here. Poor browser support, but support is coming. Not many fonts support it yet, but type designers are on it now. `font-variation-settings` is low level (a la Houdini), and so can override other font settings, e.g. `font-weight`.
+Variable fonts (see `font-variation-settings`: can only be targeted with media query and JavaScript (?as opposed to what?). Designers can add custom variable axes, in addition to the preregistered ones): not so much use for latin character sets, but in languages with large character sets, e.g. Japanese, it's prohibitive to load the bold font weight as well as the regular one, so using variable fonts can help here. Poor browser support, but support is coming. Not many fonts support it yet, but type designers are on it now. `font-variation-settings` is low level (a la Houdini), and so can override other font settings, e.g. `font-weight`.
 Variable fonts are incompatible with parametric fonts.
 [axis-praxis.org](https://axis-praxis.org)    
 
 ## 3rd parties
 - generate request maps for what 
 - [requestmap.webperf.tools](https://requestmap.webperf.tools)
-- WebpageTest blackhole endpoint
+- WebpageTest black hole endpoint
 - could return an empty response from ServiceWorker if script doesn't return in a set amount of time 
 - sandbox property
 - SafeFrame?
@@ -131,18 +131,18 @@ Variable fonts are incompatible with parametric fonts.
   
 
 ## Performance
-- cheap Android phones running Chrome pass all mustard cutting checks but have limited memory & CPU capablity.
-- could try for Devive mamory API, and fall back to mustatrd cutting if that doesn't work
-- Google suggetsing Moto G4 as an average reference phone.
+- cheap Android phones running Chrome pass all mustard cutting checks but have limited memory & CPU capability.
+- could try for Device memory API, and fall back to mustard cutting if that doesn't work
+- Google suggesting Moto G4 as an average reference phone.
 - script parsing time vary so much between devices it's insane.
 - 90% sites sending 1MB js which takes about 4s to even just parse on a Moto G4
 - (sites only use 40% of the js they're sent)
 - takes 5s to get interactive on 3G network with 400ms round trip time with just 170k for everything on critical load path
 
-- scout approach to deploying on H/1.1, avoids having to redownload html when assets change
+- scout approach to deploying on H/1.1, avoids having to re-download html when assets change
 - H/2 can have many small files
 - comparing H/1.1 with H/2: with no packet loss H/2 is (much?) faster, but what about packet loss with H/2? It can bork downloads (~20% US traffic affected by traffic loss).
-- server push: giid for first load, but server will always push them even when they're in the browser cache (solved by cache-digest: coming, but it's not ready yet).  
+- server push: good for first load, but server will always push them even when they're in the browser cache (solved by cache-digest: coming, but it's not ready yet).  
 - still important to package with H/2 in order from dictionary reuse in the compression: e.g. 5-10 bundles
 - browsers not optimised for this yet, so there can be browser runtime costs of sending many files over H/2.
 - with H/2, can load individual files instead of inlining critical css
@@ -196,10 +196,10 @@ Slides at [www.smashed.by/lnd18](https://www.smashed.by/lnd18)
 
 
 Deployment:
- - version control delpoyments
+ - version control deployments
  - Avoid human interventions
  - Make them atomic
- - could create a URL for every version ready for cicrulation stakeholders' approval
+ - could create a URL for every version ready for circulation stakeholders' approval
  - decide when and what to version (= a deployment)
  - script them
  - automate them
@@ -239,7 +239,7 @@ Perf studies indicate that whatever you do with grid, it performs pretty much th
 
 "I'm not here to build shiny things for rich people. I never have been."
 
-Grid gaps and tracks should be animatiable (only implemented in FF atm)
+Grid gaps and tracks should be animatable (only implemented in FF atm)
 
 Suggest don't use progressive enhancement approach for building a grid:
   - build good document structure
@@ -279,7 +279,7 @@ compositing is running shaders with all layers as input (Martin coding shaders i
 
 ## Techniques:
 - "blur up": load tiny, scaled up image first to give an impression of the image while the main image loads.
-- manipulate the colour histogram e.g. make the image greyscale. Put it over a background colour or a gradient backgroud (either of its own element, or of a (pseudo, maybe) element positioned behind it) then apply css filters/mix blend modes etc to the image element so it interacts with the background colour in funky ways to give coloured effects.
+- manipulate the colour histogram e.g. make the image greyscale. Put it over a background colour or a gradient background (either of its own element, or of a (pseudo, maybe) element positioned behind it) then apply css filters/mix blend modes etc to the image element so it interacts with the background colour in funky ways to give coloured effects.
 - When SVG is used as a background image, you can't affect it directly, but you can affect it with CSS filters.
 - "contrast swap": reduce image contrast using linear transform function in an image editor to reduce the image file size, serve image, in CSS apply contrast `filter` to make up for the contrast removal. Downside is downloading the image gives you the low contrast image version
 - never use gifs: send video instead
@@ -317,11 +317,11 @@ Do A/B testing on the CDN, not on the client. Fastly recognise this.
 Make sure you can always turn off A/B testing quickly in an emergency. Recounted one client who was A/B testing login buttons. A/B testing caused a massive slow down, but they couldn't turn it off without removing the login button from their site entirely.
 Some 3rd parties (ad providers tealeaf & Oracle were the examples), add a `beforeUnload` handler: they want to finalise data or whatever before the next page load (they use this event because there's no guarantee that the `unload` event will ever fire). This can introduce a 1-2s delay when leaving a page with these ads on.
 
-Double check DevTools waterfall in WebPageTest, as it can be hard to see what's going on. Example of game.co.uk: during page load, the browser had initiated 61 image requests before requesting the actual page [wtf?]. Couldn't tell in devtools, but waterfall chart in webpagetest made it clear.
+Double check DevTools waterfall in WebPageTest, as it can be hard to see what's going on. Example of game.co.uk: during page load, the browser had initiated 61 image requests before requesting the actual page [wtf?]. Couldn't tell in DevTools, but waterfall chart in webpagetest made it clear.
 
 Average number of network requests sent by one ad is 56! One video ad can  use 3s CPU render time.
 
-He's tried CSP and sub resource integrity to try to control rogue ads, but not had much sucess.
+He's tried CSP and sub resource integrity to try to control rogue ads, but not had much success.
 
 RUM: Real user metrics rather than lab metrics (New Relic vs WebPageTest).
 
@@ -336,7 +336,7 @@ For each 3rd party you add, establish the value, and understand the cost.
 
 # Zach Leatherman: Web font performance
 
-slate.com accidentally announced that Mitt Romney was running for president when the actual strory was that he'd decided
+slate.com accidentally announced that Mitt Romney was running for president when the actual story was that he'd decided
 _not_ to run for president: this happened because an oblique webfont for the word "not" hadn't loaded (FOIT).
 
 Browsers often hide content when loading web fonts (FOIT).
@@ -361,7 +361,7 @@ Whether and how FOIT / FOUT can be managed using `font-display` as a progressive
 Browsers use font-synthesis (fake bold/italic), when the real font version is not available. Useful for when fonts are loading, but don't use this 
 technique once font loading cycle has finished.
 
-[faux-pas bookmarklet](https://filamentgroup.github.io/faux-pas/dist/demo.html) can identify occurences of font-synthesis on a page
+[faux-pas bookmarklet](https://filamentgroup.github.io/faux-pas/dist/demo.html) can identify occurrences of font-synthesis on a page
 
 The browser initiates a web font load when:
 - CSS has been parsed and `@font-face` found
@@ -377,7 +377,7 @@ Can use `preload` with web fonts to reduce the elapsed time to font available; e
 
 [CSS Font Loading module](https://drafts.csswg.org/css-font-loading/) (Editor's Draft atm) may help in the future, Bram Stein tried to polyfill but it needs access to browser internals that just aren't available, so he's instead concentrated on [Font Face Observer](https://github.com/bramstein/fontfaceobserver). It has no FOIT, forces one grouped repaint, and works with third party font hosts.
 
-[postcss-foft-classes](https://github.com/zachleat/postcss-foft-classes) uses css classes to control font loading. Potentially powerful, but you need to be carenful 
+[postcss-foft-classes](https://github.com/zachleat/postcss-foft-classes) uses css classes to control font loading. Potentially powerful, but you need to be careful 
 because once the appropriate css class is applied, the font is loaded whether there is any node using it or not.
 
 ## Checklist:
@@ -460,7 +460,7 @@ until the container comes into view: phone networks will otherwise load the imag
 [could be clever, loading the next one as its container gets close to the viewport, but is far enough away to allow time for the load to complete on a mobile network?...]
 
 Interactive metrics: first interactive vs consistently interactive. Showing lots before first interactive can be frustrating: you're 
-showing the user lots of lovely toys they can't play with yet. Kind of a victim of own success in getting the time to first meaningful paint down so sucessfully
+showing the user lots of lovely toys they can't play with yet. Kind of a victim of own success in getting the time to first meaningful paint down so successfully
 
 iPhones have maintained lightening fast rendering: e.g. all JS & CSS [for what site?] downloaded at 3s desktop, 5s iPhone, low end 20s Android.
 
@@ -502,7 +502,7 @@ audits -> performance audit -> all_the_things!
 
 console popup tab (not main tab), '...' -> Coverage provides real time reports of unused CSS.
 
-Can programatically access dev tools, so can script API via pupeteer for automated tests
+Can programmatically access dev tools, so can script API via Puppeteer for automated tests
 
 Best way to know what's happening in DevTools: read the codebase! 
       
@@ -524,7 +524,7 @@ Large scale RUM: Chrome User Experience Report (CrUX): provides UX metrics for h
 *users who are syncing their browser history without a passphrase.
 
 Processing the data:
-1. anonymise
+1. anonymize
 1. filter out non-public URLs
 1. filter out low traffic URLs (so users can't be identified by visits to these)
 1. geocode by country and then by IP address
@@ -555,7 +555,7 @@ Index page only                     All pages
 Deep traces & '00's of metrics      Small set of diagnostic metrics
 
 
-Callibrate your lab against the RUM data for your site.
+Calibrate your lab against the RUM data for your site.
 
 CrUX:
 - page load time: 3.4s
@@ -571,7 +571,7 @@ The internal type of the things held within an array.
 
 The more specific the elements kinds type, the more efficient the array operations.
 
-As the variation in the types of items held in an array becomes more heterogenous, the elements kinds type of the array changes. It always changes in the direction specific -> generic, never in the other direction.
+As the variation in the types of items held in an array becomes more heterogeneous, the elements kinds type of the array changes. It always changes in the direction specific -> generic, never in the other direction.
 
 For example: if an array has only small integer values, the array has a very specific elements kinds; once floating point numbers are added, the elements kinds becomes more generic, and if you add in some strings, the elements kinds becomes very generic. If the strings and floating point numbers are removed from the array, and only small integers remain, the elements kinds type remains very generic, because these values can never get more specific.      
 
@@ -587,9 +587,9 @@ Try to avoid having arrays containing `-0`, `NaN` and `Infinity` [also `-Infinit
 
 Use `(...args)` rest syntax for getting args into a proper array rather than the old `arguments` array-like structure.
 
-`d8` is a repl for `v8`. See https://www.dropbox.com/s/h24711w7q5z5vfn/2018-02-08%2010.53.01.jpg?dl=0 for slide of how to run it (Note `%`-prefixed items are not valid js names and so are deliberately used for V8 internals so they don't accidentally get exposed.)
+`d8` is a REPL for `v8`. See https://www.dropbox.com/s/h24711w7q5z5vfn/2018-02-08%2010.53.01.jpg?dl=0 for slide of how to run it (Note `%`-prefixed items are not valid js names and so are deliberately used for V8 internals so they don't accidentally get exposed.)
 
-Array constructor preallocated space, which might be more efficient when dealing with e.g. 9000+ elements, but the array it creates is sparse, so bear in mind what happens when trying to read from an unpopulated index. Alternatively, create the array using a primative, and `push` to it. Good for allocating 16 elements at a time, but may be slower than using  the array constructor for large arrays.
+Array constructor preallocated space, which might be more efficient when dealing with e.g. 9000+ elements, but the array it creates is sparse, so bear in mind what happens when trying to read from an unpopulated index. Alternatively, create the array using a primitive, and `push` to it. Good for allocating 16 elements at a time, but may be slower than using  the array constructor for large arrays.
 
 Basically you're either optimising array creation, or future array operations: you pays your money, you takes your choice.
 
@@ -613,7 +613,7 @@ Strategies:
 ## Remove unnecessary js
 Only use transpiled code where necessary (80% of browsers support ES2015).
 
-Use minifiers and optimisers. This can have tradeoffs: better compression may require more CPU/upfront work/possible side effects. Can reserve more aggressive optimisations for static resources that can be cahced. Find the sweetspot between compression size and time.
+Use minifiers and optimisers. This can have tradeoffs: better compression may require more CPU/upfront work/possible side effects. Can reserve more aggressive optimisations for static resources that can be cached. Find the sweet spot between compression size and time.
 
 Tree-shaking (webpack, rollup etc.), made possible because ES2015 modules are static rather than dynamic. This is why exports are always top level.
 
@@ -621,13 +621,13 @@ Webpack: typically used for frameworks: "static module bundler for modern JavaSc
                                                                                                                   
 Rollup: typically used for libraries (e.g. used by React, Vue, Ember, D3, etc...). Features tree shaking only i.e. generates a smaller bundle, but lacks many of Webpack's features.
 
-Treeshaking removes only unused exports, only supports 2015 modules; it may include more code than necessary (it defaults to safe i.e. includes the code if it's not sure). Remove unused code yourself, because it's hard to do automatically via static analysis because JavaScript is loosely typed.
+Tree shaking removes only unused exports, only supports 2015 modules; it may include more code than necessary (it defaults to safe i.e. includes the code if it's not sure). Remove unused code yourself, because it's hard to do automatically via static analysis because JavaScript is loosely typed.
 
 ## Delay js load
 
 Defer non-essential scripts: prefer `defer` over `async`: `defer` executes when the parser finishes parsing the document [ordering vs `async`?].
 
-Use code-splitting and lazy-loading: it reduces js that needs to be parsed at startup, and reduces load of irrelavent code.
+Use code-splitting and lazy-loading: it reduces js that needs to be parsed at startup, and reduces load of irrelevant code.
 
 Code splitting:
 - 1 application, 1 script: good compression, poor caching, poor granularity
@@ -638,7 +638,7 @@ Code splitting:
 
 Netflix reduced the Time To Interactive on their login page by 50% when they replaced React with vanilla js. The remainder of the app loads in the background while the user logs in.
 
-Moving things from the client to the server gives you less variation of metrics, and the server's completely ujnder your control. 
+Moving things from the client to the server gives you less variation of metrics, and the server's completely under your control. 
 
 ## Bandwidth vs latency
 
@@ -708,9 +708,9 @@ Six areas that affect performance:
 1. contention
 1. bloat 
 
-TCP slow start: initial response is 10 packets which is equivalent to 14kb, response rate scales up exponentially from there when no packet loss. Try to get as much critcal render stuff in the first 14k. [Does TCP slow start still apply with HTTP/2? Presumably, but can't get resource on it].
+TCP slow start: initial response is 10 packets which is equivalent to 14kb, response rate scales up exponentially from there when no packet loss. Try to get as much critical render stuff in the first 14k. [Does TCP slow start still apply with HTTP/2? Presumably, but can't get resource on it].
 
-Browser ideal would be a flat dependency tree, but humamns write deep, creating a deep dependency tree.
+Browser ideal would be a flat dependency tree, but humans write deep, creating a deep dependency tree.
 
 HTTP/1.1 tries to avoid contention issues by delaying requests for low priority resources.
 
@@ -722,7 +722,7 @@ HTTP/2 server's job is to send resources in correct prioritisation order, and is
 HTTP/2 packet loss effectively reintroduces HTTP/1.1's head of line problem, as the stream will stall until the missing TCP packet is resent.
 
 ## Critical rendering path: resource loading
-The network imposes latency-, bandwidth-, and 3g/4g architecture contraints. Once things have begun to load it goes like this:
+The network imposes latency-, bandwidth-, and 3g/4g architecture constraints. Once things have begun to load it goes like this:
 
 1. dl html, discover css asap with look ahead pre-parser.
 1. HTML -> DOM; CSS -> CSSOM; dl JavaScript
@@ -733,17 +733,17 @@ The network imposes latency-, bandwidth-, and 3g/4g architecture contraints. Onc
 
 Priority: HTML > CSS > JavaScript > Fonts > Images
 
-Cross resource compression (crossing the advantages of more bytes for greater compression with that of independemnt resources).
+Cross resource compression (crossing the advantages of more bytes for greater compression with that of independent resources).
 
 "Web packaging" treats each file in a bundle separately, but they can be cached together. 
 
 HTTP/2 compression dictionaries look promising, but there are security concerns.
 
-QUIC stack replaces TCP/TLS layer with the new QUIK protocol implemented in user space [https://www.chromium.org/quic](https://www.chromium.org/quic)
+QUIC stack replaces TCP/TLS layer with the new QUIC protocol implemented in user space [https://www.chromium.org/quic](https://www.chromium.org/quic)
 
 QUIC handles packet loss differently: rather than stalling all streams, it only stalls the stream that's lost the packet.
 
-QUIC is released in 6-week cycles and has not stabalised, the IETF are involved, but it's not ready for prime time yet (hopefully end of 2018).
+QUIC is released in 6-week cycles and has not stabilised, the IETF are involved, but it's not ready for prime time yet (hopefully end of 2018).
 
 Early flushing isn't always a good thing: for example, what happens if a database call fails, and you need to send a separate page, but you've already flushed the header of the page you were expecting to load before the db call failed? Its' tricky.
 
@@ -824,9 +824,9 @@ IntersectionObserver.
 
 Avoid layout thrashing: read from the DOM and then write to the DOM, don't try to do both at once.
 
-CSS containment: indicates an element subtree is indepenedent from the rest of the document, it tells the browser it's safe to optimise the element.
+CSS containment: indicates an element subtree is independent from the rest of the document, it tells the browser it's safe to optimise the element.
 
-test in devtools: more tools -> rendering -> performance -> timeline.
+test in DevTools: more tools -> rendering -> performance -> timeline.
 
 # Allison McKnight: "Building performance for the long term"
 
@@ -879,7 +879,7 @@ use vertical media queries and use multicol within, in order to stop scrolling b
 
 gap property in grid and multicol is the same (coming to flexbox later, too)   
 
-A lot of users of multicol are publishers: ebooks. CSS WG for multi-col is ~50% pubishers using CSS to print books 
+A lot of users of multicol are publishers: ebooks. CSS WG for multi-col is ~50% publishers using CSS to print books 
 
 ## Flexbox
 Flexbox or grid? If you're putting widths on your flex items, you should probably be using grid.
@@ -903,7 +903,7 @@ Grid probably fewer bugs in supporting browsers than flexbox, because grid happe
 
 [No one uses things between browser flags, Chrome origin trials: can opt your site into trialing new tech. Experiment to get devs using stuff _safely_, early & so to provide feedback.
 
-Browser vendors don't want to look bad, so they're all keen to solve interop problems.]
+Browser vendors don't want to look bad, so they're all keen to solve interoperability problems.]
 
 `align-content` acts on the group of flex items as a whole (a la `justify-content`) when you have wrapping items and there is space in the flex container. This is not the same as `align-items`, which works on individual items within the container.
 
@@ -1009,7 +1009,7 @@ you can use any of a line's names to address it.
 
 <!-- WOAH! https://codepen.io/davidcmoulton/pen/paevry?editors=1100 --> 
 
-If you want to line up grid components to line up with older %-based-laid-out components you can use %, prolly the only good reason to though.
+If you want to line up grid components to line up with older %-based-laid-out components you can use %, probably the only good reason to though.
 
 Grid template areas: create a template and place things into it. Need to define a name for things on the grid with `grid-area`
 populated via `grid-template-areas` 
@@ -1018,7 +1018,7 @@ overall shape of area needs to be rectangular.
 Each of the areas will yield line names e.g. 'sidebar' area will yield lines named 'sidebar-start' and 'sidebar-end'.
 A line may have several names, derived from the area names.
 
-grid areas are assigned without quotes, but references from grod-area-template within quotes. grid-template-area has one string per 'row'
+grid areas are assigned without quotes, but references from grid-area-template within quotes. grid-template-area has one string per 'row'
 
 You could overdo it tho'.
 
